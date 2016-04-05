@@ -86,6 +86,7 @@ namespace Compilador{
             ren = codeBox.GetLineFromCharIndex(indiceChar);
             col = indiceChar - codeBox.GetFirstCharIndexFromLine(ren);
             statusLabel.Text = string.Format("Ren: {0}, Col: {1}", ren+1, col);
+            
         }
 
         private void actualizaLineas() {
@@ -175,14 +176,15 @@ namespace Compilador{
         //Empezar accion
         private void empezarToolStripMenuItem_Click(object sender, EventArgs e) {
             guardarToolStripMenuItem_Click(sender, e);
-            if(ruta != "") {
-                lexicoBox.Text = "";
-                this.edoActual = 0;
-                charAct = 0;
-                while (true) if (!autmataLexico(leerChar(++charAct))) break;
-                Console.WriteLine("Chars: " + charAct);
-                Console.WriteLine(leerChar(7));
-            }
+             if(ruta != "") {
+                 lexicoBox.Text = "";
+                 this.edoActual = 0;
+                 charAct = 0;
+                 while (true) if (!autmataLexico(leerChar(++charAct))) break;
+                 Console.WriteLine("Chars: " + charAct);
+                 Console.WriteLine(leerChar(7));
+             }
+           
         }
         /// FIN Compilacion
     }

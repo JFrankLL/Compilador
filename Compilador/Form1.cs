@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Compilador{
     public partial class Form1 : Form{
 
-        int indiceChar = 0, ren = 0, col = 0, estado=0;
+        int indiceChar = 0, ren = 0, col = 0, edoActual=0, charAct=0;
         private string ruta = "", strTkn = "";
 
         public Form1(){
@@ -26,13 +27,10 @@ namespace Compilador{
             nLineaBox.Font = codeBox.Font;
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e){
-            Console.WriteLine("Codigo cambiado");
-        }
+        private void richTextBox1_TextChanged(object sender, EventArgs e){}
 
         private void Form1_Load(object sender, EventArgs e) {
             actualizaLineas();
-            Console.WriteLine("Cargado");
         }
 
         private void codeBox_TextChanged(object sender, EventArgs e){
@@ -55,32 +53,28 @@ namespace Compilador{
                     sw.WriteLine(linea);
                 sw.Flush();
                 sw.Close();
-            } else {
-                SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = "SISH|*.sish|TXT|*txt";
-                dialog.Title = "Save a File";
-                if (dialog.ShowDialog() == DialogResult.OK) {
-                    StreamWriter sw = File.CreateText(dialog.FileName);
-                    foreach (string linea in codeBox.Lines)
-                        sw.WriteLine(linea);
-                    sw.Flush();
-                    sw.Close();
-                }
-                ruta = dialog.FileName;
-            }
+                FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.ReadWrite);
+                fs.SetLength(fs.Length - 2);
+                fs.Close();
+            } else
+                miGuardarComo_Click(sender, e);//Talvez guarde, o no.
         }
-        private void miGuardarComo_Click(object sender, EventArgs e){
+        private  void miGuardarComo_Click(object sender, EventArgs e){
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "SISH|*.sish|TXT|*txt";
             dialog.Title = "Save a File";
-            if (dialog.ShowDialog() == DialogResult.OK) {
-                StreamWriter sw = File.CreateText(dialog.FileName);
+            if (dialog.ShowDialog() == DialogResult.OK) {//Si guardo
+                StreamWriter sw = File.CreateText(ruta);
                 foreach (string linea in codeBox.Lines)
                     sw.WriteLine(linea);
                 sw.Flush();
                 sw.Close();
+                FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.ReadWrite);
+                fs.SetLength(fs.Length - 2);
+                fs.Close();
+                ruta = dialog.FileName;
             }
-            ruta = dialog.FileName;
+            ruta = "";
         }
         private void miSalir_Click(object sender, EventArgs e){
             Application.Exit();
@@ -106,89 +100,89 @@ namespace Compilador{
         ///
 
         private char leerChar(int indice) {
-            if (ruta == "")
-                return ' ';
-            StreamReader sr = new StreamReader(ruta);
-            string linea;
-            int i = 0;
-            while ((linea = sr.ReadLine()) != null)
-                foreach (char c in linea.ToCharArray())
-                    if (++i == indice) {
-                        sr.Close();
-                        return c;
-                    }
-            sr.Close();
-            return ' ';
+            char c = '`';
+            if (ruta != "") {
+                StreamReader sr = new StreamReader(ruta);
+                /*string linea;
+                int i = 0;
+                while (!sr.EndOfStream) {
+                    linea = sr.ReadLine();
+                    foreach (char c in linea.ToCharArray())
+                        if (++i == indice) {
+                            sr.Close();
+                            return c;
+                        }
+                }*/
+                for(int i=0; i<indice; i++)
+                    c = (char)sr.Read();
+                sr.Close();
+            }
+            return c;
         }
 
-        private bool autmataLexico(int edo, char entrada) {//Falta hacer el retorno del estado final = TRUE
-            Console.WriteLine(entrada);
-            switch (edo) {
+        private bool autmataLexico(char entrada) {//Falta hacer el retorno del estado final = TRUE
+            Console.WriteLine("Automata, edo: {0}, in: {1}", this.edoActual, entrada);
+            switch (this.edoActual) {
                 case 0://Estado inicial
-                    if(entrada >= '0' && entrada <= '9') {
-                        estado = 1;
+                    if (entrada >= '0' && entrada <= '9') {
+                        this.edoActual = 1;
                         strTkn += entrada;
                         return true;
-                    } else if (entrada >= 'a' && entrada <= 'z') {//letra
-                        estado = 2;
+                    } else if (entrada == '_' || (entrada >= 'a' && entrada <= 'z') || (entrada >= 'A' && entrada <= 'Z')) {
+                        this.edoActual = 2;
                         strTkn += entrada;
                         return true;
-                    } else if (entrada == ';') {//letra
-                        estado = 0;
-                        lexicoBox.AppendText(strTkn + "\n");
-                        lexicoBox.AppendText(";\n");
-                        strTkn = "";
+                    } else
                         return true;
-                    } else {//Otra cosa
-                        estado = 0;
-                        strTkn = "\n";
-                        return true;
-                    }
-                    break;
                 case 1://Puro numer
                     if (entrada >= '0' && entrada <= '9') {
-                        estado = 1;
+                        this.edoActual = 1;
                         strTkn += entrada;
                         return true;
-                    } else if (entrada >= 'a' && entrada <= 'z') {//letra ERROR
-                        estado = 10;
-                        lexicoBox.AppendText(strTkn + "\n");
+                    } else if (entrada == '_' || (entrada >= 'a' && entrada <= 'z') || (entrada >= 'A' && entrada <= 'Z')) {
+                        this.edoActual = 2;
+                        this.lexicoBox.AppendText(strTkn+"\n");
                         strTkn = "";
+                        strTkn += entrada;
                         return true;
-                    } else if (entrada == ';') {//;
-                        estado = 0;
-                        lexicoBox.AppendText(strTkn + "\n");
-                        lexicoBox.AppendText(";\n");
+                    } else {
+                        this.lexicoBox.AppendText(strTkn + "\n");
                         strTkn = "";
-                        return true;
-                    } else {//Otra cosa
-                        lexicoBox.AppendText(strTkn+"\n");
-                        estado = 0;
-                        strTkn = "";
+                        this.edoActual = 20;
                         return true;
                     }
                 case 2://Identificadores
-                    if (entrada >= 'a' && entrada <= 'z') {//letra
-                        edo = 2;
+                    if (entrada == '_' || (entrada >= 'a' && entrada <= 'z') || (entrada >= 'A' && entrada <= 'Z')) {
+                        this.edoActual = 2;
+                        strTkn += entrada;
                         return true;
-                    }else if (entrada == '_') {//subrayado
-                        edo = 2;
+                    }else if (entrada >= '0' && entrada <= '9') {
+                        this.edoActual = 1;
+                        lexicoBox.AppendText(strTkn + "\n");
+                        strTkn = "";
+                        strTkn += entrada;
+                        return true;
+                    } else {
+                        this.edoActual = 0;
+                        lexicoBox.AppendText(strTkn + "\n");
+                        strTkn = "";
                         return true;
                     }
-                    break;
                 default:
-                    break;
+                    return false;
             }
-            return false;
         }
         //Empezar accion
         private void empezarToolStripMenuItem_Click(object sender, EventArgs e) {
-
-            lexicoBox.Text = "";
-            int i = 0;
-            while (i++ != -1)
-                if(!autmataLexico(estado, leerChar(i)))
-                    break;
+            guardarToolStripMenuItem_Click(sender, e);
+            if(ruta != "") {
+                lexicoBox.Text = "";
+                this.edoActual = 0;
+                charAct = 0;
+                while (true) if (!autmataLexico(leerChar(++charAct))) break;
+                Console.WriteLine("Chars: " + charAct);
+                Console.WriteLine(leerChar(7));
+            }
         }
         /// FIN Compilacion
     }

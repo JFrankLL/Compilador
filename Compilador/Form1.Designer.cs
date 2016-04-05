@@ -2,19 +2,9 @@
 {
     partial class Form1
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing){
+            if (disposing && (components != null)){
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -44,6 +34,7 @@
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miAbrir = new System.Windows.Forms.ToolStripMenuItem();
+            this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miGuardarComo = new System.Windows.Forms.ToolStripMenuItem();
             this.miSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -56,6 +47,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lexicoBox = new System.Windows.Forms.RichTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -83,6 +75,7 @@
             this.splitCode.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -174,6 +167,7 @@
             this.empezarToolStripMenuItem.Name = "empezarToolStripMenuItem";
             this.empezarToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.empezarToolStripMenuItem.Text = "Empezar";
+            this.empezarToolStripMenuItem.Click += new System.EventHandler(this.empezarToolStripMenuItem_Click);
             // 
             // compilarToolStripMenuItem
             // 
@@ -209,6 +203,7 @@
             this.archivoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miAbrir,
+            this.guardarToolStripMenuItem,
             this.miGuardarComo,
             this.miSalir});
             this.archivoToolStripMenuItem.Font = new System.Drawing.Font("Arial Unicode MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -224,12 +219,19 @@
             this.miAbrir.Text = "Abrir";
             this.miAbrir.Click += new System.EventHandler(this.miAbrir_Click);
             // 
+            // guardarToolStripMenuItem
+            // 
+            this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
+            this.guardarToolStripMenuItem.Text = "Guardar";
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
+            // 
             // miGuardarComo
             // 
             this.miGuardarComo.Name = "miGuardarComo";
             this.miGuardarComo.Size = new System.Drawing.Size(193, 26);
             this.miGuardarComo.Text = "Guardar como...";
-            this.miGuardarComo.Click += new System.EventHandler(this.miGuardar_Click);
+            this.miGuardarComo.Click += new System.EventHandler(this.miGuardarComo_Click);
             // 
             // miSalir
             // 
@@ -381,12 +383,23 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.lexicoBox);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(344, 334);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Lexico";
+            // 
+            // lexicoBox
+            // 
+            this.lexicoBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lexicoBox.Location = new System.Drawing.Point(3, 3);
+            this.lexicoBox.Name = "lexicoBox";
+            this.lexicoBox.Size = new System.Drawing.Size(338, 328);
+            this.lexicoBox.TabIndex = 0;
+            this.lexicoBox.Text = "";
+            this.lexicoBox.WordWrap = false;
             // 
             // tabPage2
             // 
@@ -528,6 +541,7 @@
             this.splitCode.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
@@ -575,5 +589,7 @@
         private System.Windows.Forms.SplitContainer splitCode;
         private System.Windows.Forms.RichTextBox codeBox;
         private System.Windows.Forms.RichTextBox nLineaBox;
+        private System.Windows.Forms.RichTextBox lexicoBox;
+        private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
     }
 }

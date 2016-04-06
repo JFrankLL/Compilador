@@ -35,7 +35,6 @@ namespace Compilador{
 
         private void codeBox_TextChanged(object sender, EventArgs e){
             actualizaLineas();
-            this.nLineaBox.ScrollToCaret();
         }
         ///
         /// Botones Archivo menu 
@@ -177,14 +176,15 @@ namespace Compilador{
         //Empezar accion
         private void empezarToolStripMenuItem_Click(object sender, EventArgs e) {
             guardarToolStripMenuItem_Click(sender, e);
-            if(ruta != "") {
-               /* lexicoBox.Text = "";
-                this.edoActual = 0;
-                charAct = 0;
-                while (true) if (!autmataLexico(leerChar(++charAct))) break;
-                Console.WriteLine("Chars: " + charAct);*/
-                Console.WriteLine(leerChar(7));
-            }
+             if(ruta != "") {
+                 lexicoBox.Text = "";
+                 this.edoActual = 0;
+                 charAct = 0;
+                 while (true) if (!autmataLexico(leerChar(++charAct))) break;
+                 Console.WriteLine("Chars: " + charAct);
+                 Console.WriteLine(leerChar(7));
+             }
+           
         }
         /// FIN Compilacion
     }

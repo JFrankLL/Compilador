@@ -347,8 +347,9 @@
             this.codeBox.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeBox.ForeColor = System.Drawing.Color.Black;
             this.codeBox.Location = new System.Drawing.Point(0, 0);
+            this.codeBox.Margin = new System.Windows.Forms.Padding(100);
             this.codeBox.Name = "codeBox";
-            this.codeBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.codeBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.codeBox.ShowSelectionMargin = true;
             this.codeBox.Size = new System.Drawing.Size(605, 364);
             this.codeBox.TabIndex = 4;

@@ -1,9 +1,26 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Compilador{
+    public enum ScrollBarType : uint {
+        SbHorz = 0,
+        SbVert = 1,
+        SbCtl = 2,
+        SbBoth = 3
+    }
+    public enum Message : uint {
+        WM_VSCROLL = 0x0115
+    }
+    public enum ScrollBarCommands : uint {
+        SB_THUMBPOSITION = 4
+    }
     public partial class Form1 : Form{
+        [DllImport("User32.dll")]
+        public extern static int GetScrollPos(IntPtr hWnd, int nBar);
+        [DllImport("User32.dll")]
+        public extern static int SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
         //Atributos
         int indiceChar = 0, ren = 0, col = 0, edoActual=0, charAct=0;
         private string ruta = "", strTkn = "";
@@ -11,17 +28,6 @@ namespace Compilador{
         public Form1(){
             InitializeComponent();
             statusLabel.Text = string.Format("Ren: {0}, Col: {1}", 0, 0);
-            /*foreach (string line in richTextBox1.Lines) {
-                string[] strings = { "if", "else", "for", "do", "while", "int", "float", "double", "string", "short", ";" };
-                int n_linea;
-                foreach (string s in strings) {
-                    if ((n_linea = richTextBox1.Find(s)) > 0) {
-                        richTextBox1.Select(n_linea, s.Length);
-                        richTextBox1.SelectionFont = new Font(richTextBox1.Font, FontStyle.Bold);
-                    }
-                }
-            }
-            this.richTextBox1.DeselectAll();*/
             nLineaBox.Font = codeBox.Font;
         }
         //////////////////////////////////////////////////////////////////////////////////////
@@ -80,117 +86,23 @@ namespace Compilador{
             statusLabel.Text = string.Format("Ren: {0}, Col: {1}", ren + 1, col);
             //actualizaLineas();
         }
-        private void codeBox_scrollV(Message msg) {
-            msg.HWnd = nLineaBox.Handle;
-            nLineaBox.PubWndProc(ref msg);
+        private void codeBox_VScroll(object sender, EventArgs e) {
+            int nPos = GetScrollPos(codeBox.Handle, (int)ScrollBarType.SbVert);
+            nPos <<= 16;
+            uint wParam = (uint)ScrollBarCommands.SB_THUMBPOSITION | (uint)nPos;
+            SendMessage(nLineaBox.Handle, (int)Message.WM_VSCROLL, new IntPtr(wParam), new IntPtr(0));
         }
         /*****************************************************************************************
                                                Compilar (Inicio)                                */
         private void compilar(object sender, EventArgs e) {//compilar
             guardar(sender, e);//respalda trabajo
             if (ruta != "") {//Si guardado
-                lexicoBox.Text = "";//limpia lista de tokens
-                edoActual = 0;//inicio
-                charAct = 0;//cuenta char
-                while (true) if (!autmataLexico(leerChar(++charAct))) break;//leer todos los char
+                
             }
         }
         /*                                    Compilar (FIN)
         ******************************************************************************************/
         
-        /// Compilacion  //// Va pa' juarez (ignorar en caso de ver esto)
-        private char leerChar(int indice) {
-            char c = '`';
-            if (ruta != "") {
-                StreamReader sr = new StreamReader(ruta);
-                /*string linea;
-                int i = 0;
-                while (!sr.EndOfStream) {
-                    linea = sr.ReadLine();
-                    foreach (char c in linea.ToCharArray())
-                        if (++i == indice) {
-                            sr.Close();
-                            return c;
-                        }
-                }*/
-                for(int i=0; i<indice; i++)
-                    c = (char)sr.Read();
-                sr.Close();
-            }
-            return c;
-        }
-        private bool autmataLexico(char entrada) {//Falta hacer el retorno del estado final = TRUE
-            Console.WriteLine("Automata, edo: {0}, in: {1}", edoActual, entrada);
-            switch (edoActual) {
-                case 0://Estado inicial
-                    if (entrada >= '0' && entrada <= '9') {
-                        edoActual = 1;
-                        strTkn += entrada;
-                        return true;
-                    } else if (entrada == '_' || (entrada >= 'a' && entrada <= 'z') || (entrada >= 'A' && entrada <= 'Z')) {
-                        edoActual = 2;
-                        strTkn += entrada;
-                        return true;
-                    } else
-                        return true;
-                case 1://Puro numer
-                    if (entrada >= '0' && entrada <= '9') {
-                        edoActual = 1;
-                        strTkn += entrada;
-                        return true;
-                    } else if (entrada == '_' || (entrada >= 'a' && entrada <= 'z') || (entrada >= 'A' && entrada <= 'Z')) {
-                        edoActual = 2;
-                        lexicoBox.AppendText(strTkn+"\n");
-                        strTkn = "";
-                        strTkn += entrada;
-                        return true;
-                    } else {
-                        lexicoBox.AppendText(strTkn + "\n");
-                        strTkn = "";
-                        edoActual = 20;
-                        return true;
-                    }
-                case 2://Identificadores
-                    if (entrada == '_' || (entrada >= 'a' && entrada <= 'z') || (entrada >= 'A' && entrada <= 'Z')) {
-                        edoActual = 2;
-                        strTkn += entrada;
-                        return true;
-                    }else if (entrada >= '0' && entrada <= '9') {
-                        edoActual = 1;
-                        lexicoBox.AppendText(strTkn + "\n");
-                        strTkn = "";
-                        strTkn += entrada;
-                        return true;
-                    } else {
-                        edoActual = 0;
-                        lexicoBox.AppendText(strTkn + "\n");
-                        strTkn = "";
-                        return true;
-                    }
-                default:
-                    return false;
-            }
-        }
-        /// FIN Compilacion
-    }
-    ////////////////////////////////////////////////////////////////////
-    ///                       Clases Graficas                        ///
-    ////////////////////////////////////////////////////////////////////
-    public class SynchronizedScrollRichTextBox : RichTextBox {
-        public event vScrollEventHandler vScroll;
-        public delegate void vScrollEventHandler(Message message);
-
-        public const int WM_VSCROLL = 0x115;
-
-        protected override void WndProc(ref Message msg) {
-            if (msg.Msg == WM_VSCROLL)
-                if (vScroll != null)
-                    vScroll(msg);
-            base.WndProc(ref msg);
-        }
-
-        public void PubWndProc(ref Message msg) {
-            base.WndProc(ref msg);
-        }
+        
     }
 }

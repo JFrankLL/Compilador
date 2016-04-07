@@ -48,8 +48,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitCode = new System.Windows.Forms.SplitContainer();
-            this.nLineaBox = new Compilador.SynchronizedScrollRichTextBox();
-            this.codeBox = new Compilador.SynchronizedScrollRichTextBox();
+            this.nLineaBox = new System.Windows.Forms.RichTextBox();
+            this.codeBox = new System.Windows.Forms.RichTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -390,7 +390,7 @@
             this.nLineaBox.BackColor = System.Drawing.Color.Gray;
             this.nLineaBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nLineaBox.Font = this.codeBox.Font;
-            this.nLineaBox.ForeColor = System.Drawing.Color.DarkOrange;
+            this.nLineaBox.ForeColor = System.Drawing.Color.White;
             this.nLineaBox.Location = new System.Drawing.Point(0, 0);
             this.nLineaBox.Name = "nLineaBox";
             this.nLineaBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -415,7 +415,7 @@
             this.codeBox.TabIndex = 4;
             this.codeBox.Text = "\n\n\n\n\n\n\n\n\n10\n\n\n\n\n\n\n\n\n\n20\n\n\n\n\n\n\n\n\n\n30\n\n\n\n\n\n\n\n\n\n40\n\n\n\n\n\n\n\n\n\n50\n\n\n\n\n\n\n\n\n\n60";
             this.codeBox.WordWrap = false;
-            this.codeBox.vScroll += new Compilador.SynchronizedScrollRichTextBox.vScrollEventHandler(this.codeBox_scrollV);
+            this.codeBox.VScroll += new System.EventHandler(this.codeBox_VScroll);
             this.codeBox.Click += new System.EventHandler(this.code_Click);
             this.codeBox.TextChanged += new System.EventHandler(this.codeBox_TextChanged);
             this.codeBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.code_Click);
@@ -649,8 +649,8 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.SplitContainer splitCode;
-        private SynchronizedScrollRichTextBox codeBox;
-        private SynchronizedScrollRichTextBox nLineaBox;
+        private System.Windows.Forms.RichTextBox codeBox;
+        private System.Windows.Forms.RichTextBox nLineaBox;
         private System.Windows.Forms.RichTextBox lexicoBox;
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton newToolStripButton;

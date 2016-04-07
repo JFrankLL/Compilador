@@ -19,13 +19,19 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.guardarComoButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.compileButton = new System.Windows.Forms.ToolStripButton();
-            this.guardarButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.abrirButton = new System.Windows.Forms.ToolStripButton();
+            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.acercaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empezarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,8 +48,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitCode = new System.Windows.Forms.SplitContainer();
-            this.nLineaBox = new System.Windows.Forms.RichTextBox();
-            this.codeBox = new System.Windows.Forms.RichTextBox();
+            this.nLineaBox = new Compilador.SynchronizedScrollRichTextBox();
+            this.codeBox = new Compilador.SynchronizedScrollRichTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -81,11 +87,6 @@
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 23);
-            // 
             // guardarComoButton
             // 
             this.guardarComoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -94,7 +95,7 @@
             this.guardarComoButton.Name = "guardarComoButton";
             this.guardarComoButton.Size = new System.Drawing.Size(23, 20);
             this.guardarComoButton.Text = "Guradar como..";
-            this.guardarComoButton.Click += new System.EventHandler(this.miGuardarComo_Click);
+            this.guardarComoButton.Click += new System.EventHandler(this.guardarComo);
             // 
             // toolStripSeparator1
             // 
@@ -110,28 +111,24 @@
             this.compileButton.Size = new System.Drawing.Size(23, 20);
             this.compileButton.Text = "compileButton";
             this.compileButton.ToolTipText = "Compilar";
-            this.compileButton.Click += new System.EventHandler(this.empezarToolStripMenuItem_Click);
-            // 
-            // guardarButton
-            // 
-            this.guardarButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.guardarButton.Image = ((System.Drawing.Image)(resources.GetObject("guardarButton.Image")));
-            this.guardarButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.guardarButton.Name = "guardarButton";
-            this.guardarButton.Size = new System.Drawing.Size(23, 20);
-            this.guardarButton.Text = "Guardar";
-            this.guardarButton.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
+            this.compileButton.Click += new System.EventHandler(this.compilar);
             // 
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.abrirButton,
-            this.toolStripSeparator2,
-            this.guardarButton,
+            this.newToolStripButton,
+            this.openToolStripButton,
+            this.saveToolStripButton,
             this.guardarComoButton,
+            this.toolStripSeparator,
+            this.cutToolStripButton,
+            this.copyToolStripButton,
+            this.pasteToolStripButton,
+            this.toolStripSeparator3,
+            this.compileButton,
             this.toolStripSeparator1,
-            this.compileButton});
+            this.helpToolStripButton});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 29);
             this.toolStrip1.Name = "toolStrip1";
@@ -140,16 +137,80 @@
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // abrirButton
+            // newToolStripButton
             // 
-            this.abrirButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.abrirButton.Image = ((System.Drawing.Image)(resources.GetObject("abrirButton.Image")));
-            this.abrirButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.abrirButton.Name = "abrirButton";
-            this.abrirButton.Size = new System.Drawing.Size(23, 20);
-            this.abrirButton.Text = "toolStripButton3";
-            this.abrirButton.ToolTipText = "Abrir archivo";
-            this.abrirButton.Click += new System.EventHandler(this.miAbrir_Click);
+            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
+            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newToolStripButton.Name = "newToolStripButton";
+            this.newToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.newToolStripButton.Text = "&New";
+            // 
+            // openToolStripButton
+            // 
+            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
+            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.openToolStripButton.Text = "&Open";
+            this.openToolStripButton.Click += new System.EventHandler(this.miAbrir_Click);
+            // 
+            // saveToolStripButton
+            // 
+            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
+            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripButton.Name = "saveToolStripButton";
+            this.saveToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.saveToolStripButton.Text = "&Save";
+            this.saveToolStripButton.Click += new System.EventHandler(this.guardar);
+            // 
+            // toolStripSeparator
+            // 
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 23);
+            // 
+            // cutToolStripButton
+            // 
+            this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
+            this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cutToolStripButton.Name = "cutToolStripButton";
+            this.cutToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.cutToolStripButton.Text = "C&ut";
+            // 
+            // copyToolStripButton
+            // 
+            this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
+            this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.copyToolStripButton.Name = "copyToolStripButton";
+            this.copyToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.copyToolStripButton.Text = "&Copy";
+            // 
+            // pasteToolStripButton
+            // 
+            this.pasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pasteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripButton.Image")));
+            this.pasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pasteToolStripButton.Name = "pasteToolStripButton";
+            this.pasteToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.pasteToolStripButton.Text = "&Paste";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 23);
+            // 
+            // helpToolStripButton
+            // 
+            this.helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.helpToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("helpToolStripButton.Image")));
+            this.helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.helpToolStripButton.Name = "helpToolStripButton";
+            this.helpToolStripButton.Size = new System.Drawing.Size(23, 20);
+            this.helpToolStripButton.Text = "He&lp";
             // 
             // acercaToolStripMenuItem
             // 
@@ -173,7 +234,7 @@
             this.empezarToolStripMenuItem.Name = "empezarToolStripMenuItem";
             this.empezarToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.empezarToolStripMenuItem.Text = "Empezar";
-            this.empezarToolStripMenuItem.Click += new System.EventHandler(this.empezarToolStripMenuItem_Click);
+            this.empezarToolStripMenuItem.Click += new System.EventHandler(this.compilar);
             // 
             // compilarToolStripMenuItem
             // 
@@ -230,14 +291,14 @@
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
             this.guardarToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             this.guardarToolStripMenuItem.Text = "Guardar";
-            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardar);
             // 
             // miGuardarComo
             // 
             this.miGuardarComo.Name = "miGuardarComo";
             this.miGuardarComo.Size = new System.Drawing.Size(193, 26);
             this.miGuardarComo.Text = "Guardar como...";
-            this.miGuardarComo.Click += new System.EventHandler(this.miGuardarComo_Click);
+            this.miGuardarComo.Click += new System.EventHandler(this.guardarComo);
             // 
             // miSalir
             // 
@@ -321,7 +382,7 @@
             // 
             this.splitCode.Panel2.Controls.Add(this.codeBox);
             this.splitCode.Size = new System.Drawing.Size(650, 364);
-            this.splitCode.SplitterDistance = 41;
+            this.splitCode.SplitterDistance = 44;
             this.splitCode.TabIndex = 0;
             // 
             // nLineaBox
@@ -329,12 +390,12 @@
             this.nLineaBox.BackColor = System.Drawing.Color.Gray;
             this.nLineaBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nLineaBox.Font = this.codeBox.Font;
+            this.nLineaBox.ForeColor = System.Drawing.Color.DarkOrange;
             this.nLineaBox.Location = new System.Drawing.Point(0, 0);
             this.nLineaBox.Name = "nLineaBox";
-            this.nLineaBox.ReadOnly = true;
             this.nLineaBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.nLineaBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.nLineaBox.Size = new System.Drawing.Size(41, 364);
+            this.nLineaBox.Size = new System.Drawing.Size(44, 364);
             this.nLineaBox.TabIndex = 0;
             this.nLineaBox.Text = "";
             // 
@@ -347,14 +408,14 @@
             this.codeBox.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeBox.ForeColor = System.Drawing.Color.Black;
             this.codeBox.Location = new System.Drawing.Point(0, 0);
-            this.codeBox.Margin = new System.Windows.Forms.Padding(100);
             this.codeBox.Name = "codeBox";
-            this.codeBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.codeBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.codeBox.ShowSelectionMargin = true;
-            this.codeBox.Size = new System.Drawing.Size(605, 364);
+            this.codeBox.Size = new System.Drawing.Size(602, 364);
             this.codeBox.TabIndex = 4;
-            this.codeBox.Text = "//Este es el inicio del IDE para nuestro compilador....";
+            this.codeBox.Text = "\n\n\n\n\n\n\n\n\n10\n\n\n\n\n\n\n\n\n\n20\n\n\n\n\n\n\n\n\n\n30\n\n\n\n\n\n\n\n\n\n40\n\n\n\n\n\n\n\n\n\n50\n\n\n\n\n\n\n\n\n\n60";
             this.codeBox.WordWrap = false;
+            this.codeBox.vScroll += new Compilador.SynchronizedScrollRichTextBox.vScrollEventHandler(this.codeBox_scrollV);
             this.codeBox.Click += new System.EventHandler(this.code_Click);
             this.codeBox.TextChanged += new System.EventHandler(this.codeBox_TextChanged);
             this.codeBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.code_Click);
@@ -556,13 +617,10 @@
         }
 
         #endregion
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton guardarComoButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton compileButton;
-        private System.Windows.Forms.ToolStripButton guardarButton;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton abrirButton;
         private System.Windows.Forms.ToolStripMenuItem acercaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem empezarToolStripMenuItem;
@@ -591,9 +649,18 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.SplitContainer splitCode;
-        private System.Windows.Forms.RichTextBox codeBox;
-        private System.Windows.Forms.RichTextBox nLineaBox;
+        private SynchronizedScrollRichTextBox codeBox;
+        private SynchronizedScrollRichTextBox nLineaBox;
         private System.Windows.Forms.RichTextBox lexicoBox;
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton newToolStripButton;
+        private System.Windows.Forms.ToolStripButton openToolStripButton;
+        private System.Windows.Forms.ToolStripButton saveToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private System.Windows.Forms.ToolStripButton cutToolStripButton;
+        private System.Windows.Forms.ToolStripButton copyToolStripButton;
+        private System.Windows.Forms.ToolStripButton pasteToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton helpToolStripButton;
     }
 }

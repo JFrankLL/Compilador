@@ -83,7 +83,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="imagenes\Save all.png" />
     <None Include="imagenes\save.png" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imagenes\document_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imagenes\Save_as.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

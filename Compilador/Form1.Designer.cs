@@ -23,15 +23,15 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.compileButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.nuevoArchivo = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.cortar = new System.Windows.Forms.ToolStripButton();
+            this.copiar = new System.Windows.Forms.ToolStripButton();
+            this.pegar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.acerca = new System.Windows.Forms.ToolStripButton();
             this.acercaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empezarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,11 +59,20 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.mi_copiar = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_cortar = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_pegar = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_alinNum = new System.Windows.Forms.ToolStripMenuItem();
+            this.sintaticoBox = new System.Windows.Forms.RichTextBox();
+            this.semanticoBox = new System.Windows.Forms.RichTextBox();
+            this.codIntBox = new System.Windows.Forms.RichTextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.erroresBox = new System.Windows.Forms.RichTextBox();
+            this.resultadosBox = new System.Windows.Forms.RichTextBox();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -82,9 +91,14 @@
             this.panel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // guardarComoButton
@@ -117,18 +131,18 @@
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripButton,
+            this.nuevoArchivo,
             this.openToolStripButton,
             this.saveToolStripButton,
             this.guardarComoButton,
             this.toolStripSeparator,
-            this.cutToolStripButton,
-            this.copyToolStripButton,
-            this.pasteToolStripButton,
+            this.cortar,
+            this.copiar,
+            this.pegar,
             this.toolStripSeparator3,
             this.compileButton,
             this.toolStripSeparator1,
-            this.helpToolStripButton});
+            this.acerca});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 29);
             this.toolStrip1.Name = "toolStrip1";
@@ -137,14 +151,16 @@
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // newToolStripButton
+            // nuevoArchivo
             // 
-            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
-            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(23, 20);
-            this.newToolStripButton.Text = "&New";
+            this.nuevoArchivo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.nuevoArchivo.Image = ((System.Drawing.Image)(resources.GetObject("nuevoArchivo.Image")));
+            this.nuevoArchivo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.nuevoArchivo.Name = "nuevoArchivo";
+            this.nuevoArchivo.Size = new System.Drawing.Size(23, 20);
+            this.nuevoArchivo.Text = "&New";
+            this.nuevoArchivo.ToolTipText = "Nuevo archivo vacio";
+            this.nuevoArchivo.Click += new System.EventHandler(this.nuevoArch);
             // 
             // openToolStripButton
             // 
@@ -171,52 +187,61 @@
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 23);
             // 
-            // cutToolStripButton
+            // cortar
             // 
-            this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
-            this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cutToolStripButton.Name = "cutToolStripButton";
-            this.cutToolStripButton.Size = new System.Drawing.Size(23, 20);
-            this.cutToolStripButton.Text = "C&ut";
+            this.cortar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cortar.Image = ((System.Drawing.Image)(resources.GetObject("cortar.Image")));
+            this.cortar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cortar.Name = "cortar";
+            this.cortar.Size = new System.Drawing.Size(23, 20);
+            this.cortar.Text = "C&ut";
+            this.cortar.ToolTipText = "Cortar";
+            this.cortar.Click += new System.EventHandler(this.cortar_Click);
             // 
-            // copyToolStripButton
+            // copiar
             // 
-            this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
-            this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.copyToolStripButton.Name = "copyToolStripButton";
-            this.copyToolStripButton.Size = new System.Drawing.Size(23, 20);
-            this.copyToolStripButton.Text = "&Copy";
+            this.copiar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.copiar.Image = ((System.Drawing.Image)(resources.GetObject("copiar.Image")));
+            this.copiar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.copiar.Name = "copiar";
+            this.copiar.Size = new System.Drawing.Size(23, 20);
+            this.copiar.Text = "&Copy";
+            this.copiar.ToolTipText = "Copiar";
+            this.copiar.Click += new System.EventHandler(this.copiar_Click);
             // 
-            // pasteToolStripButton
+            // pegar
             // 
-            this.pasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripButton.Image")));
-            this.pasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pasteToolStripButton.Name = "pasteToolStripButton";
-            this.pasteToolStripButton.Size = new System.Drawing.Size(23, 20);
-            this.pasteToolStripButton.Text = "&Paste";
+            this.pegar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pegar.Image = ((System.Drawing.Image)(resources.GetObject("pegar.Image")));
+            this.pegar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pegar.Name = "pegar";
+            this.pegar.Size = new System.Drawing.Size(23, 20);
+            this.pegar.Text = "&Paste";
+            this.pegar.ToolTipText = "Pegar";
+            this.pegar.Click += new System.EventHandler(this.pegar_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 23);
             // 
-            // helpToolStripButton
+            // acerca
             // 
-            this.helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.helpToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("helpToolStripButton.Image")));
-            this.helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.helpToolStripButton.Name = "helpToolStripButton";
-            this.helpToolStripButton.Size = new System.Drawing.Size(23, 20);
-            this.helpToolStripButton.Text = "He&lp";
+            this.acerca.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.acerca.Image = ((System.Drawing.Image)(resources.GetObject("acerca.Image")));
+            this.acerca.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.acerca.Name = "acerca";
+            this.acerca.Size = new System.Drawing.Size(23, 20);
+            this.acerca.Text = "He&lp";
+            this.acerca.ToolTipText = "Acerca";
+            this.acerca.Click += new System.EventHandler(this.acerca_Click);
             // 
             // acercaToolStripMenuItem
             // 
             this.acercaToolStripMenuItem.Name = "acercaToolStripMenuItem";
-            this.acercaToolStripMenuItem.Size = new System.Drawing.Size(130, 26);
+            this.acercaToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.acercaToolStripMenuItem.Text = "Acerca";
+            this.acercaToolStripMenuItem.Click += new System.EventHandler(this.acerca_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -250,6 +275,8 @@
             // formatoToolStripMenuItem
             // 
             this.formatoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.formatoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mi_alinNum});
             this.formatoToolStripMenuItem.Font = new System.Drawing.Font("Arial Unicode MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.formatoToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.formatoToolStripMenuItem.Name = "formatoToolStripMenuItem";
@@ -259,6 +286,10 @@
             // editarToolStripMenuItem
             // 
             this.editarToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.editarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mi_copiar,
+            this.mi_cortar,
+            this.mi_pegar});
             this.editarToolStripMenuItem.Font = new System.Drawing.Font("Arial Unicode MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editarToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
@@ -392,28 +423,27 @@
             this.nLineaBox.Font = this.codeBox.Font;
             this.nLineaBox.ForeColor = System.Drawing.Color.White;
             this.nLineaBox.Location = new System.Drawing.Point(0, 0);
+            this.nLineaBox.Margin = new System.Windows.Forms.Padding(3, 3, 3, 30);
             this.nLineaBox.Name = "nLineaBox";
             this.nLineaBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.nLineaBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.nLineaBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
             this.nLineaBox.Size = new System.Drawing.Size(44, 364);
             this.nLineaBox.TabIndex = 0;
             this.nLineaBox.Text = "";
+            this.nLineaBox.WordWrap = false;
             // 
             // codeBox
             // 
             this.codeBox.AcceptsTab = true;
             this.codeBox.BackColor = System.Drawing.Color.White;
-            this.codeBox.DetectUrls = false;
             this.codeBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.codeBox.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.codeBox.ForeColor = System.Drawing.Color.Black;
             this.codeBox.Location = new System.Drawing.Point(0, 0);
             this.codeBox.Name = "codeBox";
-            this.codeBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.codeBox.ShowSelectionMargin = true;
             this.codeBox.Size = new System.Drawing.Size(602, 364);
             this.codeBox.TabIndex = 4;
-            this.codeBox.Text = "\n\n\n\n\n\n\n\n\n10\n\n\n\n\n\n\n\n\n\n20\n\n\n\n\n\n\n\n\n\n30\n\n\n\n\n\n\n\n\n\n40\n\n\n\n\n\n\n\n\n\n50\n\n\n\n\n\n\n\n\n\n60";
+            this.codeBox.Text = "";
             this.codeBox.WordWrap = false;
             this.codeBox.VScroll += new System.EventHandler(this.codeBox_VScroll);
             this.codeBox.Click += new System.EventHandler(this.code_Click);
@@ -468,6 +498,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.sintaticoBox);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -478,6 +509,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.semanticoBox);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -488,6 +520,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.codIntBox);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -519,18 +552,9 @@
             this.tabControl2.Size = new System.Drawing.Size(995, 111);
             this.tabControl2.TabIndex = 3;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage5.Location = new System.Drawing.Point(4, 29);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(987, 78);
-            this.tabPage5.TabIndex = 0;
-            this.tabPage5.Text = "Errores";
-            // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.resultadosBox);
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
@@ -570,6 +594,90 @@
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statusLabel.Click += new System.EventHandler(this.code_Click);
             // 
+            // mi_copiar
+            // 
+            this.mi_copiar.Name = "mi_copiar";
+            this.mi_copiar.Size = new System.Drawing.Size(152, 26);
+            this.mi_copiar.Text = "Copiar";
+            this.mi_copiar.Click += new System.EventHandler(this.copiar_Click);
+            // 
+            // mi_cortar
+            // 
+            this.mi_cortar.Name = "mi_cortar";
+            this.mi_cortar.Size = new System.Drawing.Size(152, 26);
+            this.mi_cortar.Text = "Cortar";
+            this.mi_cortar.Click += new System.EventHandler(this.cortar_Click);
+            // 
+            // mi_pegar
+            // 
+            this.mi_pegar.Name = "mi_pegar";
+            this.mi_pegar.Size = new System.Drawing.Size(152, 26);
+            this.mi_pegar.Text = "Pegar";
+            this.mi_pegar.Click += new System.EventHandler(this.pegar_Click);
+            // 
+            // mi_alinNum
+            // 
+            this.mi_alinNum.Name = "mi_alinNum";
+            this.mi_alinNum.Size = new System.Drawing.Size(195, 26);
+            this.mi_alinNum.Text = "Alinear numeros";
+            this.mi_alinNum.Click += new System.EventHandler(this.codeBox_VScroll);
+            // 
+            // sintaticoBox
+            // 
+            this.sintaticoBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sintaticoBox.Location = new System.Drawing.Point(3, 3);
+            this.sintaticoBox.Name = "sintaticoBox";
+            this.sintaticoBox.Size = new System.Drawing.Size(338, 329);
+            this.sintaticoBox.TabIndex = 0;
+            this.sintaticoBox.Text = "";
+            // 
+            // semanticoBox
+            // 
+            this.semanticoBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.semanticoBox.Location = new System.Drawing.Point(3, 3);
+            this.semanticoBox.Name = "semanticoBox";
+            this.semanticoBox.Size = new System.Drawing.Size(338, 329);
+            this.semanticoBox.TabIndex = 0;
+            this.semanticoBox.Text = "";
+            // 
+            // codIntBox
+            // 
+            this.codIntBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codIntBox.Location = new System.Drawing.Point(3, 3);
+            this.codIntBox.Name = "codIntBox";
+            this.codIntBox.Size = new System.Drawing.Size(338, 329);
+            this.codIntBox.TabIndex = 0;
+            this.codIntBox.Text = "";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage5.Controls.Add(this.erroresBox);
+            this.tabPage5.Location = new System.Drawing.Point(4, 29);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(987, 78);
+            this.tabPage5.TabIndex = 0;
+            this.tabPage5.Text = "Errores";
+            // 
+            // erroresBox
+            // 
+            this.erroresBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.erroresBox.Location = new System.Drawing.Point(3, 3);
+            this.erroresBox.Name = "erroresBox";
+            this.erroresBox.Size = new System.Drawing.Size(981, 72);
+            this.erroresBox.TabIndex = 0;
+            this.erroresBox.Text = "";
+            // 
+            // resultadosBox
+            // 
+            this.resultadosBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultadosBox.Location = new System.Drawing.Point(3, 3);
+            this.resultadosBox.Name = "resultadosBox";
+            this.resultadosBox.Size = new System.Drawing.Size(981, 72);
+            this.resultadosBox.TabIndex = 0;
+            this.resultadosBox.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -607,10 +715,15 @@
             this.panel3.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -639,7 +752,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TabControl tabControl2;
-        private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -653,14 +765,24 @@
         private System.Windows.Forms.RichTextBox nLineaBox;
         private System.Windows.Forms.RichTextBox lexicoBox;
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton newToolStripButton;
+        private System.Windows.Forms.ToolStripButton nuevoArchivo;
         private System.Windows.Forms.ToolStripButton openToolStripButton;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripButton cutToolStripButton;
-        private System.Windows.Forms.ToolStripButton copyToolStripButton;
-        private System.Windows.Forms.ToolStripButton pasteToolStripButton;
+        private System.Windows.Forms.ToolStripButton cortar;
+        private System.Windows.Forms.ToolStripButton copiar;
+        private System.Windows.Forms.ToolStripButton pegar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton helpToolStripButton;
+        private System.Windows.Forms.ToolStripButton acerca;
+        private System.Windows.Forms.ToolStripMenuItem mi_alinNum;
+        private System.Windows.Forms.ToolStripMenuItem mi_copiar;
+        private System.Windows.Forms.ToolStripMenuItem mi_cortar;
+        private System.Windows.Forms.ToolStripMenuItem mi_pegar;
+        private System.Windows.Forms.RichTextBox sintaticoBox;
+        private System.Windows.Forms.RichTextBox semanticoBox;
+        private System.Windows.Forms.RichTextBox codIntBox;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.RichTextBox erroresBox;
+        private System.Windows.Forms.RichTextBox resultadosBox;
     }
 }

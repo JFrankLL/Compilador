@@ -47,13 +47,12 @@
             this.miGuardarComo = new System.Windows.Forms.ToolStripMenuItem();
             this.miSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.barraMenu = new System.Windows.Forms.MenuStrip();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.barraStatus = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitCode = new System.Windows.Forms.SplitContainer();
-            this.nLineaBox = new System.Windows.Forms.RichTextBox();
             this.codeBox = new System.Windows.Forms.RichTextBox();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.tabsDerecha = new System.Windows.Forms.TabControl();
             this.tabLexico = new System.Windows.Forms.TabPage();
             this.lexicoBox = new System.Windows.Forms.RichTextBox();
@@ -63,17 +62,16 @@
             this.semanticoBox = new System.Windows.Forms.RichTextBox();
             this.tabCodInt = new System.Windows.Forms.TabPage();
             this.codIntBox = new System.Windows.Forms.RichTextBox();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.tabsAbajo = new System.Windows.Forms.TabControl();
             this.tabErrores = new System.Windows.Forms.TabPage();
             this.erroresBox = new System.Windows.Forms.RichTextBox();
             this.tabResultados = new System.Windows.Forms.TabPage();
             this.resultadosBox = new System.Windows.Forms.RichTextBox();
-            this.barraStatus = new System.Windows.Forms.StatusStrip();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.nLineaBox = new System.Windows.Forms.RichTextBox();
             this.barraHerramientas.SuspendLayout();
             this.barraMenu.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.barraStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -86,17 +84,15 @@
             this.splitCode.Panel1.SuspendLayout();
             this.splitCode.Panel2.SuspendLayout();
             this.splitCode.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.tabsDerecha.SuspendLayout();
             this.tabLexico.SuspendLayout();
             this.tabSintatico.SuspendLayout();
             this.tabSemantico.SuspendLayout();
             this.tabCodInt.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.tabsAbajo.SuspendLayout();
             this.tabErrores.SuspendLayout();
             this.tabResultados.SuspendLayout();
-            this.barraStatus.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // guardarComoButton
@@ -377,19 +373,35 @@
             this.ayudaToolStripMenuItem});
             this.barraMenu.Location = new System.Drawing.Point(0, 0);
             this.barraMenu.Name = "barraMenu";
-            this.barraMenu.Size = new System.Drawing.Size(1006, 27);
+            this.barraMenu.Size = new System.Drawing.Size(856, 27);
             this.barraMenu.TabIndex = 3;
             this.barraMenu.Text = "menuStrip1";
             // 
-            // panel1
+            // barraStatus
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.splitContainer1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 27);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1006, 532);
-            this.panel1.TabIndex = 5;
+            this.barraStatus.BackColor = System.Drawing.Color.Transparent;
+            this.barraStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel});
+            this.barraStatus.Location = new System.Drawing.Point(0, 537);
+            this.barraStatus.Name = "barraStatus";
+            this.barraStatus.Size = new System.Drawing.Size(856, 22);
+            this.barraStatus.SizingGrip = false;
+            this.barraStatus.TabIndex = 6;
+            this.barraStatus.Text = "statusStrip1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.statusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.statusLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabel.ForeColor = System.Drawing.Color.DimGray;
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.statusLabel.Size = new System.Drawing.Size(841, 17);
+            this.statusLabel.Spring = true;
+            this.statusLabel.Text = "Ren: 0, Col: 0";
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.statusLabel.Click += new System.EventHandler(this.code_Click);
             // 
             // splitContainer1
             // 
@@ -404,8 +416,8 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.panel4);
-            this.splitContainer1.Size = new System.Drawing.Size(1006, 532);
+            this.splitContainer1.Panel2.Controls.Add(this.tabsAbajo);
+            this.splitContainer1.Size = new System.Drawing.Size(856, 532);
             this.splitContainer1.SplitterDistance = 381;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -421,9 +433,9 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.panel3);
-            this.splitContainer2.Size = new System.Drawing.Size(1006, 381);
-            this.splitContainer2.SplitterDistance = 650;
+            this.splitContainer2.Panel2.Controls.Add(this.tabsDerecha);
+            this.splitContainer2.Size = new System.Drawing.Size(856, 381);
+            this.splitContainer2.SplitterDistance = 645;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitCode
@@ -442,29 +454,10 @@
             // 
             this.splitCode.Panel2.Controls.Add(this.codeBox);
             this.splitCode.Panel2MinSize = 590;
-            this.splitCode.Size = new System.Drawing.Size(650, 381);
-            this.splitCode.SplitterDistance = 56;
+            this.splitCode.Size = new System.Drawing.Size(645, 381);
+            this.splitCode.SplitterDistance = 51;
             this.splitCode.SplitterWidth = 1;
-            this.splitCode.TabIndex = 0;
-            // 
-            // nLineaBox
-            // 
-            this.nLineaBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.nLineaBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.nLineaBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nLineaBox.Font = this.codeBox.Font;
-            this.nLineaBox.ForeColor = System.Drawing.Color.Orange;
-            this.nLineaBox.Location = new System.Drawing.Point(0, 0);
-            this.nLineaBox.Margin = new System.Windows.Forms.Padding(3, 3, 3, 30);
-            this.nLineaBox.Name = "nLineaBox";
-            this.nLineaBox.ReadOnly = true;
-            this.nLineaBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.nLineaBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.nLineaBox.Size = new System.Drawing.Size(56, 381);
-            this.nLineaBox.TabIndex = 0;
-            this.nLineaBox.TabStop = false;
-            this.nLineaBox.Text = "";
-            this.nLineaBox.WordWrap = false;
+            this.splitCode.TabIndex = 1;
             // 
             // codeBox
             // 
@@ -483,17 +476,6 @@
             this.codeBox.VScroll += new System.EventHandler(this.codeBox_VScroll);
             this.codeBox.Click += new System.EventHandler(this.code_Click);
             this.codeBox.TextChanged += new System.EventHandler(this.codeBox_TextChanged);
-            this.codeBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.code_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Transparent;
-            this.panel3.Controls.Add(this.tabsDerecha);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(352, 381);
-            this.panel3.TabIndex = 0;
             // 
             // tabsDerecha
             // 
@@ -503,7 +485,6 @@
             this.tabsDerecha.Controls.Add(this.tabSemantico);
             this.tabsDerecha.Controls.Add(this.tabCodInt);
             this.tabsDerecha.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabsDerecha.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabsDerecha.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabsDerecha.HotTrack = true;
             this.tabsDerecha.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -513,9 +494,8 @@
             this.tabsDerecha.Name = "tabsDerecha";
             this.tabsDerecha.Padding = new System.Drawing.Point(0, 0);
             this.tabsDerecha.SelectedIndex = 0;
-            this.tabsDerecha.Size = new System.Drawing.Size(352, 381);
-            this.tabsDerecha.TabIndex = 3;
-            this.tabsDerecha.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabsDerecha_DrawItem);
+            this.tabsDerecha.Size = new System.Drawing.Size(207, 381);
+            this.tabsDerecha.TabIndex = 4;
             // 
             // tabLexico
             // 
@@ -525,7 +505,7 @@
             this.tabLexico.Location = new System.Drawing.Point(4, 4);
             this.tabLexico.Name = "tabLexico";
             this.tabLexico.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLexico.Size = new System.Drawing.Size(322, 373);
+            this.tabLexico.Size = new System.Drawing.Size(177, 373);
             this.tabLexico.TabIndex = 0;
             this.tabLexico.Text = "Lexico";
             // 
@@ -537,7 +517,7 @@
             this.lexicoBox.ForeColor = System.Drawing.Color.White;
             this.lexicoBox.Location = new System.Drawing.Point(3, 3);
             this.lexicoBox.Name = "lexicoBox";
-            this.lexicoBox.Size = new System.Drawing.Size(316, 367);
+            this.lexicoBox.Size = new System.Drawing.Size(171, 367);
             this.lexicoBox.TabIndex = 0;
             this.lexicoBox.Text = "";
             this.lexicoBox.WordWrap = false;
@@ -548,7 +528,7 @@
             this.tabSintatico.Location = new System.Drawing.Point(4, 4);
             this.tabSintatico.Name = "tabSintatico";
             this.tabSintatico.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSintatico.Size = new System.Drawing.Size(322, 373);
+            this.tabSintatico.Size = new System.Drawing.Size(177, 373);
             this.tabSintatico.TabIndex = 1;
             this.tabSintatico.Text = "Sintactico";
             this.tabSintatico.UseVisualStyleBackColor = true;
@@ -561,7 +541,7 @@
             this.sintaticoBox.ForeColor = System.Drawing.Color.White;
             this.sintaticoBox.Location = new System.Drawing.Point(3, 3);
             this.sintaticoBox.Name = "sintaticoBox";
-            this.sintaticoBox.Size = new System.Drawing.Size(316, 367);
+            this.sintaticoBox.Size = new System.Drawing.Size(171, 367);
             this.sintaticoBox.TabIndex = 0;
             this.sintaticoBox.Text = "";
             // 
@@ -571,7 +551,7 @@
             this.tabSemantico.Location = new System.Drawing.Point(4, 4);
             this.tabSemantico.Name = "tabSemantico";
             this.tabSemantico.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSemantico.Size = new System.Drawing.Size(322, 373);
+            this.tabSemantico.Size = new System.Drawing.Size(177, 373);
             this.tabSemantico.TabIndex = 2;
             this.tabSemantico.Text = "Semantico";
             this.tabSemantico.UseVisualStyleBackColor = true;
@@ -584,7 +564,7 @@
             this.semanticoBox.ForeColor = System.Drawing.Color.White;
             this.semanticoBox.Location = new System.Drawing.Point(3, 3);
             this.semanticoBox.Name = "semanticoBox";
-            this.semanticoBox.Size = new System.Drawing.Size(316, 367);
+            this.semanticoBox.Size = new System.Drawing.Size(171, 367);
             this.semanticoBox.TabIndex = 0;
             this.semanticoBox.Text = "";
             // 
@@ -594,7 +574,7 @@
             this.tabCodInt.Location = new System.Drawing.Point(4, 4);
             this.tabCodInt.Name = "tabCodInt";
             this.tabCodInt.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCodInt.Size = new System.Drawing.Size(322, 373);
+            this.tabCodInt.Size = new System.Drawing.Size(177, 373);
             this.tabCodInt.TabIndex = 3;
             this.tabCodInt.Text = "Codigo Intermedio";
             this.tabCodInt.UseVisualStyleBackColor = true;
@@ -607,18 +587,9 @@
             this.codIntBox.ForeColor = System.Drawing.Color.White;
             this.codIntBox.Location = new System.Drawing.Point(3, 3);
             this.codIntBox.Name = "codIntBox";
-            this.codIntBox.Size = new System.Drawing.Size(316, 367);
+            this.codIntBox.Size = new System.Drawing.Size(171, 367);
             this.codIntBox.TabIndex = 0;
             this.codIntBox.Text = "";
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.tabsAbajo);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1006, 147);
-            this.panel4.TabIndex = 0;
             // 
             // tabsAbajo
             // 
@@ -628,11 +599,11 @@
             this.tabsAbajo.Controls.Add(this.tabErrores);
             this.tabsAbajo.Controls.Add(this.tabResultados);
             this.tabsAbajo.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabsAbajo.Location = new System.Drawing.Point(3, 3);
+            this.tabsAbajo.Location = new System.Drawing.Point(0, -2);
             this.tabsAbajo.Name = "tabsAbajo";
             this.tabsAbajo.SelectedIndex = 0;
-            this.tabsAbajo.Size = new System.Drawing.Size(995, 119);
-            this.tabsAbajo.TabIndex = 3;
+            this.tabsAbajo.Size = new System.Drawing.Size(856, 124);
+            this.tabsAbajo.TabIndex = 4;
             // 
             // tabErrores
             // 
@@ -641,7 +612,7 @@
             this.tabErrores.Location = new System.Drawing.Point(4, 29);
             this.tabErrores.Name = "tabErrores";
             this.tabErrores.Padding = new System.Windows.Forms.Padding(3);
-            this.tabErrores.Size = new System.Drawing.Size(987, 86);
+            this.tabErrores.Size = new System.Drawing.Size(848, 91);
             this.tabErrores.TabIndex = 0;
             this.tabErrores.Text = "Errores";
             // 
@@ -653,7 +624,7 @@
             this.erroresBox.ForeColor = System.Drawing.Color.White;
             this.erroresBox.Location = new System.Drawing.Point(3, 3);
             this.erroresBox.Name = "erroresBox";
-            this.erroresBox.Size = new System.Drawing.Size(981, 80);
+            this.erroresBox.Size = new System.Drawing.Size(842, 85);
             this.erroresBox.TabIndex = 0;
             this.erroresBox.Text = "";
             // 
@@ -663,7 +634,7 @@
             this.tabResultados.Location = new System.Drawing.Point(4, 29);
             this.tabResultados.Name = "tabResultados";
             this.tabResultados.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResultados.Size = new System.Drawing.Size(987, 86);
+            this.tabResultados.Size = new System.Drawing.Size(848, 91);
             this.tabResultados.TabIndex = 1;
             this.tabResultados.Text = "Resultados";
             this.tabResultados.UseVisualStyleBackColor = true;
@@ -672,45 +643,48 @@
             // 
             this.resultadosBox.BackColor = System.Drawing.Color.Black;
             this.resultadosBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultadosBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultadosBox.ForeColor = System.Drawing.Color.White;
             this.resultadosBox.Location = new System.Drawing.Point(3, 3);
             this.resultadosBox.Name = "resultadosBox";
-            this.resultadosBox.Size = new System.Drawing.Size(981, 80);
+            this.resultadosBox.Size = new System.Drawing.Size(842, 85);
             this.resultadosBox.TabIndex = 0;
             this.resultadosBox.Text = "";
             // 
-            // barraStatus
+            // panel1
             // 
-            this.barraStatus.BackColor = System.Drawing.Color.Transparent;
-            this.barraStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabel});
-            this.barraStatus.Location = new System.Drawing.Point(0, 537);
-            this.barraStatus.Name = "barraStatus";
-            this.barraStatus.Size = new System.Drawing.Size(1006, 22);
-            this.barraStatus.SizingGrip = false;
-            this.barraStatus.TabIndex = 6;
-            this.barraStatus.Text = "statusStrip1";
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.splitContainer1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 27);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(856, 532);
+            this.panel1.TabIndex = 5;
             // 
-            // statusLabel
+            // nLineaBox
             // 
-            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
-            this.statusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.statusLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusLabel.ForeColor = System.Drawing.Color.DimGray;
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.statusLabel.Size = new System.Drawing.Size(991, 17);
-            this.statusLabel.Spring = true;
-            this.statusLabel.Text = "Ren: 0, Col: 0";
-            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.statusLabel.Click += new System.EventHandler(this.code_Click);
+            this.nLineaBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.nLineaBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nLineaBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nLineaBox.Font = this.codeBox.Font;
+            this.nLineaBox.ForeColor = System.Drawing.Color.Orange;
+            this.nLineaBox.Location = new System.Drawing.Point(0, 0);
+            this.nLineaBox.Name = "nLineaBox";
+            this.nLineaBox.ReadOnly = true;
+            this.nLineaBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.nLineaBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.nLineaBox.Size = new System.Drawing.Size(51, 381);
+            this.nLineaBox.TabIndex = 3;
+            this.nLineaBox.TabStop = false;
+            this.nLineaBox.Text = "";
+            this.nLineaBox.WordWrap = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(1006, 559);
+            this.ClientSize = new System.Drawing.Size(856, 559);
             this.Controls.Add(this.barraHerramientas);
             this.Controls.Add(this.barraStatus);
             this.Controls.Add(this.panel1);
@@ -726,7 +700,8 @@
             this.barraHerramientas.PerformLayout();
             this.barraMenu.ResumeLayout(false);
             this.barraMenu.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.barraStatus.ResumeLayout(false);
+            this.barraStatus.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -739,18 +714,15 @@
             this.splitCode.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitCode)).EndInit();
             this.splitCode.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
             this.tabsDerecha.ResumeLayout(false);
             this.tabLexico.ResumeLayout(false);
             this.tabSintatico.ResumeLayout(false);
             this.tabSemantico.ResumeLayout(false);
             this.tabCodInt.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             this.tabsAbajo.ResumeLayout(false);
             this.tabErrores.ResumeLayout(false);
             this.tabResultados.ResumeLayout(false);
-            this.barraStatus.ResumeLayout(false);
-            this.barraStatus.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -769,26 +741,11 @@
         private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.MenuStrip barraMenu;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TabControl tabsDerecha;
-        private System.Windows.Forms.TabPage tabSintatico;
-        private System.Windows.Forms.TabPage tabSemantico;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.TabControl tabsAbajo;
-        private System.Windows.Forms.TabPage tabResultados;
-        private System.Windows.Forms.TabPage tabLexico;
         private System.Windows.Forms.ToolStripMenuItem miSalir;
         private System.Windows.Forms.ToolStripMenuItem miAbrir;
         private System.Windows.Forms.ToolStripMenuItem miGuardarComo;
         private System.Windows.Forms.StatusStrip barraStatus;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.SplitContainer splitCode;
-        private System.Windows.Forms.RichTextBox codeBox;
-        private System.Windows.Forms.RichTextBox nLineaBox;
-        private System.Windows.Forms.RichTextBox lexicoBox;
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton nuevoArchivo;
         private System.Windows.Forms.ToolStripButton openToolStripButton;
@@ -803,12 +760,25 @@
         private System.Windows.Forms.ToolStripMenuItem mi_copiar;
         private System.Windows.Forms.ToolStripMenuItem mi_cortar;
         private System.Windows.Forms.ToolStripMenuItem mi_pegar;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitCode;
+        private System.Windows.Forms.RichTextBox codeBox;
+        private System.Windows.Forms.TabControl tabsDerecha;
+        private System.Windows.Forms.TabPage tabLexico;
+        private System.Windows.Forms.RichTextBox lexicoBox;
+        private System.Windows.Forms.TabPage tabSintatico;
         private System.Windows.Forms.RichTextBox sintaticoBox;
+        private System.Windows.Forms.TabPage tabSemantico;
         private System.Windows.Forms.RichTextBox semanticoBox;
-        private System.Windows.Forms.TabPage tabErrores;
-        private System.Windows.Forms.RichTextBox erroresBox;
-        private System.Windows.Forms.RichTextBox resultadosBox;
         private System.Windows.Forms.TabPage tabCodInt;
         private System.Windows.Forms.RichTextBox codIntBox;
+        private System.Windows.Forms.TabControl tabsAbajo;
+        private System.Windows.Forms.TabPage tabErrores;
+        private System.Windows.Forms.RichTextBox erroresBox;
+        private System.Windows.Forms.TabPage tabResultados;
+        private System.Windows.Forms.RichTextBox resultadosBox;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RichTextBox nLineaBox;
     }
 }

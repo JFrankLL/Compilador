@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -16,8 +17,8 @@ namespace Compilador {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     //Class [Ventana]
     public partial class Form1 : Form {
-        [DllImport("User32.dll")] public extern static int GetScrollPos(IntPtr hWnd, int nBar);
-        [DllImport("User32.dll")] public extern static int SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+        [DllImport("User32.dll")]public extern static int GetScrollPos(IntPtr hWnd, int nBar);
+        [DllImport("User32.dll")]public extern static int SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
         //Atributos
         int indiceChar = 0, ren = 0, col = 0;
         private string ruta = "";
@@ -28,26 +29,25 @@ namespace Compilador {
             nLineaBox.Font = codeBox.Font;
         }
         // [Basicos] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-        private void Form1_Load(object sender, EventArgs e) { actualizaLineas(sender, e); }//Evento: ventana cargada
-        private void codeBox_TextChanged(object sender, EventArgs e) { actualizaLineas(sender, e); }//Area de codigo cambia
-        private void actualizaLineas(object sender, EventArgs e) {//cuenta lineas
-            int i = 0;
-            nLineaBox.Clear();//limpia area de numeros
-            switch (codeBox.Lines.Length) {
-                case 0: nLineaBox.AppendText("  1 \n");//1
-                    break;
-                default:// n
-                    foreach (string s in codeBox.Lines)
-                        nLineaBox.AppendText("  " + (++i) + "\n");
-                    break;
-            }
+        private void Form1_Load(object sender, EventArgs e) {
+            codeBox_TextChanged(sender, e);
+        }
+        private void codeBox_TextChanged(object sender, EventArgs e) {//Area de codigo cambia
+            cuentaLineas();
             codeBox_VScroll(sender, e);
+        }
+        private void cuentaLineas() {
+            nLineaBox.Clear();//Limpia numeros
+            if (codeBox.Lines.Length != 0) {//n lineas
+                for (int i=1; i<=codeBox.Lines.Length; i++)//pon numeros
+                    nLineaBox.AppendText("  " + i + Environment.NewLine);
+            } else//1 linea
+                nLineaBox.AppendText("  " + 1 + Environment.NewLine);
         }
         // [Menu] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         private void nuevoArch(object sender, EventArgs e) {//[Nuevo archivo]
             ruta = "";//sin guardar
             codeBox.Clear();//limpia codigo
-            actualizaLineas(sender, e);//cuenta linea (pone un 1)
         }
         private void miAbrir_Click(object sender, EventArgs e) {//[Abrir archivo]
             OpenFileDialog openFile1 = new OpenFileDialog();//ventana grafica de ruta
@@ -55,7 +55,6 @@ namespace Compilador {
             if (openFile1.ShowDialog() == DialogResult.OK)//aceptar//cargar en el area de codigo como string
                 codeBox.LoadFile(openFile1.FileName, RichTextBoxStreamType.PlainText);
             ruta = openFile1.FileName;//resguardar ruta de archivo
-            codeBox_VScroll(sender, e);
         }
         private void guardar(object sender, EventArgs e) {//[Guardar]
             SaveFileDialog dialog = new SaveFileDialog();//ventana
@@ -99,40 +98,6 @@ namespace Compilador {
             nPos <<= 16;
             uint wParam = (uint)ScrollBarCommands.SB_THUMBPOSITION | (uint)nPos;
             SendMessage(nLineaBox.Handle, (int)Message.WM_VSCROLL, new IntPtr(wParam), new IntPtr(0));
-        }
-        private void tabsDerecha_DrawItem(object sender, DrawItemEventArgs e) {
-            TabPage CurrentTab = tabsDerecha.TabPages[e.Index];
-            Rectangle ItemRect = tabsDerecha.GetTabRect(e.Index);
-            SolidBrush FillBrush = new SolidBrush(Color.Black);
-            SolidBrush TextBrush = new SolidBrush(Color.White);
-            StringFormat sf = new StringFormat();
-            sf.Alignment = StringAlignment.Center;
-            sf.LineAlignment = StringAlignment.Center;
-
-            //If we are currently painting the Selected TabItem we'll
-            //change the brush colors and inflate the rectangle.
-            if (System.Convert.ToBoolean(e.State & DrawItemState.Selected)) {
-                FillBrush.Color = Color.Black;
-                TextBrush.Color = Color.Orange;
-            }
-
-            //Set up rotation for left and right aligned tabs
-            if (tabsDerecha.Alignment == TabAlignment.Left || tabsDerecha.Alignment == TabAlignment.Right) {
-                float RotateAngle = 90;
-                if (tabsDerecha.Alignment == TabAlignment.Left)
-                    RotateAngle = 270;
-                PointF cp = new PointF(ItemRect.Left + (ItemRect.Width / 2), ItemRect.Top + (ItemRect.Height / 2));
-                e.Graphics.TranslateTransform(cp.X, cp.Y);
-                e.Graphics.RotateTransform(RotateAngle);
-                ItemRect = new Rectangle(-(ItemRect.Height / 2), -(ItemRect.Width / 2), ItemRect.Height, ItemRect.Width);
-            }
-            //Next we'll paint the TabItem with our Fill Brush
-            e.Graphics.FillRectangle(FillBrush, ItemRect);
-            //Now draw the text.
-            e.Graphics.DrawString(CurrentTab.Text, e.Font, TextBrush, (RectangleF)ItemRect, sf);
-            e.Graphics.ResetTransform();
-            
-            FillBrush.Dispose(); TextBrush.Dispose();
         }
         /*****************************************Compilar (Inicio)*****************************************/
         private void compilar(object sender, EventArgs e) {//compilar

@@ -6,12 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Compilador {
-    public enum ScrollBarType : uint {
-        SbHorz = 0,
-        SbVert = 1,
-        SbCtl = 2,
-        SbBoth = 3
-    }
+    public enum ScrollBarType : uint { SbHorz = 0, SbVert = 1, SbCtl = 2, SbBoth = 3 }
     public enum Message : uint { WM_VSCROLL = 0x0115 }
     public enum ScrollBarCommands : uint { SB_THUMBPOSITION = 4 }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,7 +15,7 @@ namespace Compilador {
         [DllImport("User32.dll")]public extern static int GetScrollPos(IntPtr hWnd, int nBar);
         [DllImport("User32.dll")]public extern static int SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
         //Atributos
-        int indiceChar = 0, ren = 0, col = 0;
+        private int indiceChar = 0, ren = 0, col = 0;
         private string ruta = "";
         //Constructor
         public Form1() {
@@ -31,6 +26,7 @@ namespace Compilador {
         // [Basicos] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         private void Form1_Load(object sender, EventArgs e) {
             codeBox_TextChanged(sender, e);
+            nLineaBox.Text = " 1";
         }
         private void codeBox_TextChanged(object sender, EventArgs e) {//Area de codigo cambia
             cuentaLineas();
@@ -38,16 +34,17 @@ namespace Compilador {
         }
         private void cuentaLineas() {
             nLineaBox.Clear();//Limpia numeros
-            if (codeBox.Lines.Length != 0) {//n lineas
+            if (codeBox.Lines.Length > 1) {//n lineas
                 for (int i=1; i<=codeBox.Lines.Length; i++)//pon numeros
                     nLineaBox.AppendText("  " + i + Environment.NewLine);
             } else//1 linea
-                nLineaBox.AppendText("  " + 1 + Environment.NewLine);
+                nLineaBox.AppendText("  " + 1);
         }
         // [Menu] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         private void nuevoArch(object sender, EventArgs e) {//[Nuevo archivo]
             ruta = "";//sin guardar
             codeBox.Clear();//limpia codigo
+            this.Text = "Compilador en C# [" + ruta + "]";
         }
         private void miAbrir_Click(object sender, EventArgs e) {//[Abrir archivo]
             OpenFileDialog openFile1 = new OpenFileDialog();//ventana grafica de ruta
@@ -55,6 +52,7 @@ namespace Compilador {
             if (openFile1.ShowDialog() == DialogResult.OK)//aceptar//cargar en el area de codigo como string
                 codeBox.LoadFile(openFile1.FileName, RichTextBoxStreamType.PlainText);
             ruta = openFile1.FileName;//resguardar ruta de archivo
+            this.Text = "Compilador en C# ["+ruta+"]";
         }
         private void guardar(object sender, EventArgs e) {//[Guardar]
             SaveFileDialog dialog = new SaveFileDialog();//ventana
@@ -68,10 +66,13 @@ namespace Compilador {
                     sw.WriteLine(linea);//escribe linea
                 sw.Flush();
                 sw.Close();//Quitar ultimas lineas (extras)
-                FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.ReadWrite);
-                fs.SetLength(fs.Length - 2);
-                fs.Close();
+                if (codeBox.Lines.Length != 0) {//Archivo vacio (enti error)
+                    FileStream fs = new FileStream(ruta, FileMode.Open, FileAccess.ReadWrite);
+                    fs.SetLength(fs.Length - 2);
+                    fs.Close();
+                }
             }
+            this.Text = "Compilador en C# [" + ruta + "]";
         }
         private void guardarComo(object sender, EventArgs e) {//[GuardarComo..]
             ruta = "";
@@ -87,6 +88,13 @@ namespace Compilador {
         }
         // [Textos] - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         private void code_Click(object sender, EventArgs e) {//[codigo click]
+            indiceChar = Int32.Parse(codeBox.SelectionStart.ToString());//carrete
+            ren = codeBox.GetLineFromCharIndex(indiceChar);//linea
+            col = indiceChar - codeBox.GetFirstCharIndexFromLine(ren);//columna
+            statusLabel.Text = string.Format("Ren: {0}, Col: {1}", ren + 1, col);//actualiza label
+            codeBox_VScroll(sender, e);//sincroniza numeros
+        }
+        private void code_KeyUp(object sender, KeyEventArgs e) {//[codigo click]
             indiceChar = Int32.Parse(codeBox.SelectionStart.ToString());//carrete
             ren = codeBox.GetLineFromCharIndex(indiceChar);//linea
             col = indiceChar - codeBox.GetFirstCharIndexFromLine(ren);//columna

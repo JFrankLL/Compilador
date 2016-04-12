@@ -52,6 +52,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitCode = new System.Windows.Forms.SplitContainer();
+            this.nLineaBox = new System.Windows.Forms.RichTextBox();
             this.codeBox = new System.Windows.Forms.RichTextBox();
             this.tabsDerecha = new System.Windows.Forms.TabControl();
             this.tabLexico = new System.Windows.Forms.TabPage();
@@ -68,7 +69,8 @@
             this.tabResultados = new System.Windows.Forms.TabPage();
             this.resultadosBox = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.nLineaBox = new System.Windows.Forms.RichTextBox();
+            this.pegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cortarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.barraHerramientas.SuspendLayout();
             this.barraMenu.SuspendLayout();
             this.barraStatus.SuspendLayout();
@@ -271,7 +273,9 @@
             // 
             this.formatoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.formatoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mi_alinNum});
+            this.mi_alinNum,
+            this.pegarToolStripMenuItem,
+            this.cortarToolStripMenuItem});
             this.formatoToolStripMenuItem.Font = new System.Drawing.Font("MS Reference Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.formatoToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.formatoToolStripMenuItem.Name = "formatoToolStripMenuItem";
@@ -281,9 +285,9 @@
             // mi_alinNum
             // 
             this.mi_alinNum.Name = "mi_alinNum";
-            this.mi_alinNum.Size = new System.Drawing.Size(198, 24);
-            this.mi_alinNum.Text = "Alinear numeros";
-            this.mi_alinNum.Click += new System.EventHandler(this.codeBox_VScroll);
+            this.mi_alinNum.Size = new System.Drawing.Size(152, 24);
+            this.mi_alinNum.Text = "Copiar";
+            this.mi_alinNum.Click += new System.EventHandler(this.copiar_Click);
             // 
             // editarToolStripMenuItem
             // 
@@ -382,7 +386,7 @@
             this.barraStatus.BackColor = System.Drawing.Color.Transparent;
             this.barraStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.barraStatus.Location = new System.Drawing.Point(0, 537);
+            this.barraStatus.Location = new System.Drawing.Point(0, 125);
             this.barraStatus.Name = "barraStatus";
             this.barraStatus.Size = new System.Drawing.Size(856, 22);
             this.barraStatus.SizingGrip = false;
@@ -417,6 +421,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabsAbajo);
+            this.splitContainer1.Panel2.Controls.Add(this.barraStatus);
             this.splitContainer1.Size = new System.Drawing.Size(856, 532);
             this.splitContainer1.SplitterDistance = 381;
             this.splitContainer1.TabIndex = 6;
@@ -459,6 +464,23 @@
             this.splitCode.SplitterWidth = 1;
             this.splitCode.TabIndex = 1;
             // 
+            // nLineaBox
+            // 
+            this.nLineaBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.nLineaBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nLineaBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nLineaBox.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nLineaBox.ForeColor = System.Drawing.Color.Orange;
+            this.nLineaBox.Location = new System.Drawing.Point(0, 0);
+            this.nLineaBox.Name = "nLineaBox";
+            this.nLineaBox.ReadOnly = true;
+            this.nLineaBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.nLineaBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.nLineaBox.Size = new System.Drawing.Size(51, 381);
+            this.nLineaBox.TabIndex = 3;
+            this.nLineaBox.Text = "";
+            this.nLineaBox.WordWrap = false;
+            // 
             // codeBox
             // 
             this.codeBox.AcceptsTab = true;
@@ -476,6 +498,7 @@
             this.codeBox.VScroll += new System.EventHandler(this.codeBox_VScroll);
             this.codeBox.Click += new System.EventHandler(this.code_Click);
             this.codeBox.TextChanged += new System.EventHandler(this.codeBox_TextChanged);
+            this.codeBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.code_KeyUp);
             // 
             // tabsDerecha
             // 
@@ -661,23 +684,19 @@
             this.panel1.Size = new System.Drawing.Size(856, 532);
             this.panel1.TabIndex = 5;
             // 
-            // nLineaBox
+            // pegarToolStripMenuItem
             // 
-            this.nLineaBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.nLineaBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.nLineaBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nLineaBox.Font = this.codeBox.Font;
-            this.nLineaBox.ForeColor = System.Drawing.Color.Orange;
-            this.nLineaBox.Location = new System.Drawing.Point(0, 0);
-            this.nLineaBox.Name = "nLineaBox";
-            this.nLineaBox.ReadOnly = true;
-            this.nLineaBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.nLineaBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.nLineaBox.Size = new System.Drawing.Size(51, 381);
-            this.nLineaBox.TabIndex = 3;
-            this.nLineaBox.TabStop = false;
-            this.nLineaBox.Text = "";
-            this.nLineaBox.WordWrap = false;
+            this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.pegarToolStripMenuItem.Text = "Pegar";
+            this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegar_Click);
+            // 
+            // cortarToolStripMenuItem
+            // 
+            this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.cortarToolStripMenuItem.Text = "Cortar";
+            this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortar_Click);
             // 
             // Form1
             // 
@@ -686,15 +705,14 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(856, 559);
             this.Controls.Add(this.barraHerramientas);
-            this.Controls.Add(this.barraStatus);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.barraMenu);
             this.ForeColor = System.Drawing.Color.Transparent;
             this.Location = new System.Drawing.Point(10, 10);
+            this.MainMenuStrip = this.barraMenu;
             this.Name = "Form1";
             this.ShowIcon = false;
             this.Text = "Compilador en C#";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.barraHerramientas.ResumeLayout(false);
             this.barraHerramientas.PerformLayout();
@@ -704,6 +722,7 @@
             this.barraStatus.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -745,7 +764,6 @@
         private System.Windows.Forms.ToolStripMenuItem miAbrir;
         private System.Windows.Forms.ToolStripMenuItem miGuardarComo;
         private System.Windows.Forms.StatusStrip barraStatus;
-        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton nuevoArchivo;
         private System.Windows.Forms.ToolStripButton openToolStripButton;
@@ -780,5 +798,8 @@
         private System.Windows.Forms.RichTextBox resultadosBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RichTextBox nLineaBox;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cortarToolStripMenuItem;
     }
 }

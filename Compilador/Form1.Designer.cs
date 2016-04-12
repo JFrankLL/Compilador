@@ -35,8 +35,6 @@
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empezarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compilarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.formatoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mi_alinNum = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mi_copiar = new System.Windows.Forms.ToolStripMenuItem();
             this.mi_cortar = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,8 +67,6 @@
             this.tabResultados = new System.Windows.Forms.TabPage();
             this.resultadosBox = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cortarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.barraHerramientas.SuspendLayout();
             this.barraMenu.SuspendLayout();
             this.barraStatus.SuspendLayout();
@@ -254,7 +250,7 @@
             // empezarToolStripMenuItem
             // 
             this.empezarToolStripMenuItem.Name = "empezarToolStripMenuItem";
-            this.empezarToolStripMenuItem.Size = new System.Drawing.Size(144, 24);
+            this.empezarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.empezarToolStripMenuItem.Text = "Empezar";
             this.empezarToolStripMenuItem.Click += new System.EventHandler(this.compilar);
             // 
@@ -268,26 +264,6 @@
             this.compilarToolStripMenuItem.Name = "compilarToolStripMenuItem";
             this.compilarToolStripMenuItem.Size = new System.Drawing.Size(87, 23);
             this.compilarToolStripMenuItem.Text = "Compilar";
-            // 
-            // formatoToolStripMenuItem
-            // 
-            this.formatoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.formatoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mi_alinNum,
-            this.pegarToolStripMenuItem,
-            this.cortarToolStripMenuItem});
-            this.formatoToolStripMenuItem.Font = new System.Drawing.Font("MS Reference Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.formatoToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.formatoToolStripMenuItem.Name = "formatoToolStripMenuItem";
-            this.formatoToolStripMenuItem.Size = new System.Drawing.Size(86, 23);
-            this.formatoToolStripMenuItem.Text = "Formato";
-            // 
-            // mi_alinNum
-            // 
-            this.mi_alinNum.Name = "mi_alinNum";
-            this.mi_alinNum.Size = new System.Drawing.Size(152, 24);
-            this.mi_alinNum.Text = "Copiar";
-            this.mi_alinNum.Click += new System.EventHandler(this.copiar_Click);
             // 
             // editarToolStripMenuItem
             // 
@@ -372,7 +348,6 @@
             this.barraMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
             this.editarToolStripMenuItem,
-            this.formatoToolStripMenuItem,
             this.compilarToolStripMenuItem,
             this.ayudaToolStripMenuItem});
             this.barraMenu.Location = new System.Drawing.Point(0, 0);
@@ -684,20 +659,6 @@
             this.panel1.Size = new System.Drawing.Size(856, 532);
             this.panel1.TabIndex = 5;
             // 
-            // pegarToolStripMenuItem
-            // 
-            this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.pegarToolStripMenuItem.Text = "Pegar";
-            this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegar_Click);
-            // 
-            // cortarToolStripMenuItem
-            // 
-            this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.cortarToolStripMenuItem.Text = "Cortar";
-            this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortar_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -756,7 +717,6 @@
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem empezarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compilarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem formatoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.MenuStrip barraMenu;
@@ -774,7 +734,6 @@
         private System.Windows.Forms.ToolStripButton pegar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton acerca;
-        private System.Windows.Forms.ToolStripMenuItem mi_alinNum;
         private System.Windows.Forms.ToolStripMenuItem mi_copiar;
         private System.Windows.Forms.ToolStripMenuItem mi_cortar;
         private System.Windows.Forms.ToolStripMenuItem mi_pegar;
@@ -799,7 +758,5 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RichTextBox nLineaBox;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cortarToolStripMenuItem;
     }
 }

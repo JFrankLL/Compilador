@@ -71,12 +71,7 @@ public class Lex_auto{
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Letra:1]
                     case (byte)e.LETRA:
                         switch (tipo(c)) {
-                            case (byte)t.NUM:
-                                e_Act = (byte)e.NUMERO;
-                                lexicoBox.AppendText(token + "\n");//agrega token a la lista
-                                token = char.ToString(c);//limpia el token y agrega nuevo char
-                                break;
-                            case (byte)t.ALFA: case (byte)t.SUB:
+                            case (byte)t.ALFA: case (byte)t.SUB: case (byte)t.NUM:
                                 token += c;//completar token
                                 break;
                             case (byte)t.PYC:
@@ -99,6 +94,7 @@ public class Lex_auto{
             }
             if (token != "")//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~(agrega ultimo token: de ser posible)
                 lexicoBox.AppendText(token + "\n");//agrega token a la lista
+            sr.Close();
         }
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////

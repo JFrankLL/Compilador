@@ -44,7 +44,7 @@ namespace Compilador {
         private void nuevoArch(object sender, EventArgs e) {//[Nuevo archivo]
             ruta = "";//sin guardar
             codeBox.Clear();//limpia codigo
-            this.Text = "Compilador en C# [" + ruta + "]";
+            Text = "Compilador en C# [" + ruta + "]";
         }
         private void miAbrir_Click(object sender, EventArgs e) {//[Abrir archivo]
             OpenFileDialog openFile1 = new OpenFileDialog();//ventana grafica de ruta
@@ -52,7 +52,7 @@ namespace Compilador {
             if (openFile1.ShowDialog() == DialogResult.OK)//aceptar//cargar en el area de codigo como string
                 codeBox.LoadFile(openFile1.FileName, RichTextBoxStreamType.PlainText);
             ruta = openFile1.FileName;//resguardar ruta de archivo
-            this.Text = "Compilador en C# ["+ruta+"]";
+            Text = "Compilador en C# ["+ruta+"]";
         }
         private void guardar(object sender, EventArgs e) {//[Guardar]
             SaveFileDialog dialog = new SaveFileDialog();//ventana
@@ -72,7 +72,7 @@ namespace Compilador {
                     fs.Close();
                 }
             }
-            this.Text = "Compilador en C# [" + ruta + "]";
+            Text = "Compilador en C# [" + ruta + "]";
         }
         private void guardarComo(object sender, EventArgs e) {//[GuardarComo..]
             ruta = "";
@@ -101,6 +101,17 @@ namespace Compilador {
             statusLabel.Text = string.Format("Ren: {0}, Col: {1}", ren + 1, col);//actualiza label
             codeBox_VScroll(sender, e);//sincroniza numeros
         }
+
+        private void cerrarToolStripMenuItem_Click(object sender, EventArgs e) {
+            ruta = "";
+            if (MessageBox.Show("Desea Guardar?", "Desea guardar?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                guardar(sender, e);
+            codeBox.Clear();
+            nLineaBox.Clear();
+            cuentaLineas();
+            Text = ruta;
+        }
+
         private void codeBox_VScroll(object sender, EventArgs e) {//[scroll V]
             int nPos = GetScrollPos(codeBox.Handle, (int)ScrollBarType.SbVert);
             nPos <<= 16;
@@ -110,10 +121,11 @@ namespace Compilador {
         /*****************************************Compilar (Inicio)*****************************************/
         private void compilar(object sender, EventArgs e) {//compilar
             guardar(sender, e);//respalda trabajo
-            if (ruta != "") {//Si guardado
-                resultadosBox.Text = "Compile";
-                tabsAbajo.GetControl(0).Focus();
-            }
+            if (ruta == "")//No respaldo ... No continuar con la compilacion.
+                return;
+            resultadosBox.Text = "Compile";
+            Lex_auto lex = new Lex_auto(lexicoBox, ruta);
+            lex.compilar();
         }
         /******************************************Compilar (FIN)******************************************/
     }

@@ -67,6 +67,7 @@
             this.tabResultados = new System.Windows.Forms.TabPage();
             this.resultadosBox = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cerrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.barraHerramientas.SuspendLayout();
             this.barraMenu.SuspendLayout();
             this.barraStatus.SuspendLayout();
@@ -250,7 +251,7 @@
             // empezarToolStripMenuItem
             // 
             this.empezarToolStripMenuItem.Name = "empezarToolStripMenuItem";
-            this.empezarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.empezarToolStripMenuItem.Size = new System.Drawing.Size(144, 24);
             this.empezarToolStripMenuItem.Text = "Empezar";
             this.empezarToolStripMenuItem.Click += new System.EventHandler(this.compilar);
             // 
@@ -304,6 +305,7 @@
             this.archivoToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miAbrir,
+            this.cerrarToolStripMenuItem,
             this.guardarToolStripMenuItem,
             this.miGuardarComo,
             this.miSalir});
@@ -659,6 +661,13 @@
             this.panel1.Size = new System.Drawing.Size(856, 532);
             this.panel1.TabIndex = 5;
             // 
+            // cerrarToolStripMenuItem
+            // 
+            this.cerrarToolStripMenuItem.Name = "cerrarToolStripMenuItem";
+            this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(201, 24);
+            this.cerrarToolStripMenuItem.Text = "Cerrar";
+            this.cerrarToolStripMenuItem.Click += new System.EventHandler(this.cerrarToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -758,5 +767,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RichTextBox nLineaBox;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripMenuItem cerrarToolStripMenuItem;
     }
 }

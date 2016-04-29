@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Drawing;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -124,8 +123,9 @@ namespace Compilador {
             if (ruta == "")//No respaldo ... No continuar con la compilacion.
                 return;
             resultadosBox.Text = "Compile";
-            Lex_auto lex = new Lex_auto(lexicoBox, ruta);
-            lex.compilar();
+            //Lex_auto lex = new Lex_auto(lexicoBox, ruta);
+            //lex.compilar();
+            Process lexico = Process.Start("AutomataLexicoS.exe", "\""+ruta+"\"");
         }
         /******************************************Compilar (FIN)******************************************/
     }

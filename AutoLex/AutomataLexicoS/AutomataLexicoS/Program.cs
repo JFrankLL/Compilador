@@ -1,30 +1,37 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
 
-namespace automataLexico {
+namespace AutomataLexicoS {
     class Lex_auto {
         //Atributos
-        private RichTextBox lexicoBox;//donde mostrar tokens
-        private string ruta, token = "";
+        private string codigoF, token = "";
         private enum e: byte { INICIO, NUMERO, LETRA, OTRO };//[ESTADOS]
         private enum t: byte { ALFA, NUM, SUB, PYC, OTRO }//[Tipo de CHAR]
         private byte e_Act = (byte)e.INICIO;//estado actual
+        private StreamWriter f_tokens;
         //Constructor
-        public Lex_auto(RichTextBox lexicoBox, string ruta) {
-            this.lexicoBox = lexicoBox;
-            this.lexicoBox.Clear();
-            this.ruta = ruta;
+        public Lex_auto(string fuente) {
+            codigoF = fuente;//codigo fuente
+            f_tokens = File.CreateText("tokens.txt");//Crea archivo para guardar tokens
         }
         //Metodos
         //////////////////////////////////////////////////////////////////////////////////////////////////
-        /// COMPILAR
-        static void Main(string[] args) {
-            Console.Write("Consola pedorra");
+        /// [ MAIN ]
+        static int Main(string[] args) {
+            Console.WriteLine("Compilando");
+            if (args.Length > 0) {//Al menos 1 argumento
+                new Lex_auto(args[0]).compilar();
+                Console.WriteLine("Compilado completado!");
+                return 0; //Sin error
+            }
+            return -1;//Error (No argumentos)
         }
-        public void compilar() {
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        /// COMPILAR
+        private void compilar() {
             char c = ' ';
-            using (StreamReader sr = new StreamReader(ruta)) {
+            using (f_tokens)
+            using (StreamReader sr = new StreamReader(codigoF)) {//ruta del codigo
                 while (sr.Peek() >= 0) {
                     c = (char)sr.Read();//lee char
                     switch (e_Act) {
@@ -41,7 +48,7 @@ namespace automataLexico {
                                     token += c;//completar token
                                     break;
                                 case (byte)t.PYC:
-                                    lexicoBox.AppendText(";\n");
+                                    f_tokens.WriteLine(";");//   <--
                                     token = "";
                                     break;
                             }
@@ -55,17 +62,17 @@ namespace automataLexico {
                                 case (byte)t.ALFA:
                                 case (byte)t.SUB:
                                     e_Act = (byte)e.LETRA;
-                                    lexicoBox.AppendText(token + "\n");//agrega token a la lista
+                                    f_tokens.WriteLine(token);//   <--
                                     token = char.ToString(c);//limpia el token y agrega nuevo char
                                     break;
                                 case (byte)t.PYC:
                                     e_Act = (byte)e.INICIO;
-                                    lexicoBox.AppendText(token + "\n;\n");//2 token agregados
+                                    f_tokens.WriteLine(token + "\n;\n");//   <-- 2
                                     token = "";
                                     break;
                                 case (byte)t.OTRO:
                                     e_Act = (byte)e.INICIO;//estado otro
-                                    lexicoBox.AppendText(token + "\n");//agrega token a la lista
+                                    f_tokens.WriteLine(token + "\n");//   <--
                                     token = "";//limpia el token
                                     break;
                             }
@@ -80,12 +87,12 @@ namespace automataLexico {
                                     break;
                                 case (byte)t.PYC:
                                     e_Act = (byte)e.INICIO;
-                                    lexicoBox.AppendText(token + "\n;\n");//2 token agregados
+                                    f_tokens.WriteLine(token + "\n;\n");//   <-- 2
                                     token = "";
                                     break;
                                 case (byte)t.OTRO:
                                     e_Act = (byte)e.INICIO;//estado otro
-                                    lexicoBox.AppendText(token + "\n");//agrega token a la lista
+                                    f_tokens.WriteLine(token + "\n");//   <--
                                     token = "";//limpia el token
                                     break;
                             }
@@ -97,7 +104,7 @@ namespace automataLexico {
                     }
                 }
                 if (token != "")//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~(agrega ultimo token: de ser posible)
-                    lexicoBox.AppendText(token + "\n");//agrega token a la lista
+                    f_tokens.WriteLine(token + "\n");//   <--
                 sr.Close();
             }
         }

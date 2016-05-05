@@ -7,8 +7,8 @@
     <ProjectGuid>{940A1D84-1A52-4E88-98D1-C3BFC85C6F41}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AutomataLexicoS</RootNamespace>
-    <AssemblyName>AutomataLexicoS</AssemblyName>
+    <RootNamespace>AL</RootNamespace>
+    <AssemblyName>AL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Automata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

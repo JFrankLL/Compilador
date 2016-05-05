@@ -122,11 +122,27 @@ namespace Compilador {
             guardar(sender, e);//respalda trabajo
             if (ruta == "")//No respaldo ... No continuar con la compilacion.
                 return;
-            resultadosBox.Text = "Compile";
+            resultadosBox.Text = "Ya Compile";
             //Lex_auto lex = new Lex_auto(lexicoBox, ruta);
             //lex.compilar();
-            Process lexico = Process.Start("AutomataLexicoS.exe", "\""+ruta+"\"");
+            using (Process lexico = new Process()) {
+                Process.Start("AL.exe", "\"" + ruta + "\"");
+                lexico.Close();
+            }
+            actualizaCajas();
         }
         /******************************************Compilar (FIN)******************************************/
+        private void actualizaCajas() {
+            using (StreamReader sr = new StreamReader("errores.txt")) {
+                erroresBox.Text = sr.ReadToEnd();//carga errores
+                sr.Dispose();
+                sr.Close();
+            }
+            using (StreamReader sr = new StreamReader("tokens.txt")) {
+                lexicoBox.Text = sr.ReadToEnd();//carga lexemas
+                sr.Dispose();
+                sr.Close();
+            }
+        }
     }
 }

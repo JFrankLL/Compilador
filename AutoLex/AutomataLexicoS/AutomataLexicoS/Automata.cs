@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace AutomataLexicoS {
+namespace AL {
     class Lex_auto {
         //Atributos
         private string codigoF, token = "";
@@ -85,6 +85,10 @@ namespace AutomataLexicoS {
                                 case t.BLOQUE:
                                     f_tokens.WriteLine(c); token = ""; break;//   <--
                                 case t.ESPACIO: case t.SALTO: case t.TAB: case t.CARRO: break;
+                                default:
+                                    e_Act = e.ERROR;
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col); break;//   <--
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Operador +:1]
@@ -115,7 +119,8 @@ namespace AutomataLexicoS {
                                     token = ""; break;//reset token
                                 default:
                                     e_Act = e.ERROR;
-                                    f_errores.WriteLine("{0} {1}[Error lexico 1]" + c, linea, col); break;//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col); break;//   <--
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[NUMERO:2]
@@ -149,7 +154,8 @@ namespace AutomataLexicoS {
                                     token = ""; break;//reset token
                                 default:
                                     e_Act = e.ERROR;//Mandar a estado error
-                                    f_errores.WriteLine("{0} {1}[Error lexico 2]" + c, linea, col); break;//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 2]" + c, linea, col); break;//   <--
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Punto decimal:3]
@@ -159,12 +165,14 @@ namespace AutomataLexicoS {
                                     e_Act = e.NUMERO_FLOAT;//mandar a num. float
                                     token += c;break;//completa token
                                 case t.ESPACIO: case t.SALTO: case t.TAB: case t.CARRO:
-                                    f_errores.WriteLine("{0} {1}[Error lexico 3]" + c, linea, col);//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 3]" + c, linea, col);//   <--
                                     e_Act = (byte)e.INICIAL;//manda a estado inicial
                                     token = ""; break;//limpia token
                                 default:
                                     e_Act = e.ERROR;
-                                    f_errores.WriteLine("{0} {1}[Error lexico 3.2]" + c, linea, col); break;//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 3.2]" + c, linea, col); break;//   <--
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Numero Flotante: 4]
@@ -195,7 +203,8 @@ namespace AutomataLexicoS {
                                     token = ""; break;//reset token
                                 default:
                                     e_Act = e.ERROR;
-                                    f_errores.WriteLine("{0} {1}[Error lexico 4]" + c, linea, col); break;//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 4]" + c, linea, col); break;//   <--
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Identificadores:5]
@@ -232,9 +241,15 @@ namespace AutomataLexicoS {
                                     e_Act = e.INICIAL;//manda a estado inicial
                                     f_tokens.WriteLine(token);//   <--
                                     token = ""; break;//limpia token
+                                case t.DOS_PTOS:
+                                    e_Act = e.O_ASIGNA1;
+                                    f_tokens.WriteLine(token);
+                                    token = ""+c;
+                                    break;
                                 default:
                                     e_Act = e.ERROR;
-                                    f_errores.WriteLine("{0} {1}[Error lexico 5]" + c, linea, col); break;//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 5]" + c, linea, col); break;//   <--
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Operador /: 6]
@@ -272,6 +287,7 @@ namespace AutomataLexicoS {
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Comenterios casi:9]
                         case e.CMTS_AS:
                             switch (tipo(c)) {
+                                case t.O_MULTIPLICACION: break;
                                 case t.O_DIVISION:
                                     e_Act = e.COMENTARIOS; break;//manda a comentarios multiples terminado
                                 default:
@@ -321,7 +337,8 @@ namespace AutomataLexicoS {
                                     f_tokens.WriteLine(c); token = ""; break;//   <--
                                 default:
                                     e_Act = e.ERROR;
-                                    f_errores.WriteLine("{0} {1}[Error lexico 10]" + c, linea, col); break;//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 10]" + c, linea, col); break;//   <--
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Operador -:11]
@@ -351,9 +368,9 @@ namespace AutomataLexicoS {
                                     f_tokens.WriteLine(c);//   <--
                                     token = ""; break;//reset token
                                 default:
-                                    f_errores.WriteLine("{0} {1}[Error lexico 11]" + c, linea, col);//   <--
-                                    e_Act = (byte)e.INICIAL;
-                                    break;
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 11]" + c, linea, col);//   <--
+                                    e_Act = (byte)e.INICIAL; break;
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[Operador ++:12]
@@ -380,9 +397,11 @@ namespace AutomataLexicoS {
                                 case t.O_MENOR:case t.O_NEGAR:case t.O_RESTA:
                                 case t.O_SUMA:
                                     e_Act = e.ERROR;
-                                    f_errores.WriteLine("{0} {1}[Error lexico 12]" + c, linea, col); break;//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 12]" + c, linea, col); break;//   <--
                                 default:
-                                    f_errores.WriteLine("{0} {1}[Error lexico 12.2]" + c, linea, col);//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 12.2]" + c, linea, col);//   <--
                                     e_Act = e.INICIAL;
                                     token = ""; break;
                             }
@@ -398,7 +417,8 @@ namespace AutomataLexicoS {
                                     f_tokens.WriteLine(token);
                                     token = "" + c; break;
                                 default:
-                                    f_errores.WriteLine("{0} {1}[Error lexico 18]" + c, linea, col);//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 18]" + c, linea, col);//   <--
                                     e_Act = e.ERROR; break;
                             }
                             break;
@@ -438,7 +458,8 @@ namespace AutomataLexicoS {
                                     f_tokens.WriteLine(token);
                                     token = ""; break;
                                 default:
-                                    f_errores.WriteLine("{0} {1}[Error lexico]" + c, linea, col);//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico]" + c, linea, col);//   <--
                                     e_Act = e.ERROR; break;
                             }
                             break;
@@ -453,7 +474,8 @@ namespace AutomataLexicoS {
                                     f_tokens.WriteLine(token);
                                     token = "" + c; break;
                                 default:
-                                    f_errores.WriteLine("{0} {1}[Error lexico 20]" + c, linea, col);//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 20]" + c, linea, col);//   <--
                                     e_Act = e.ERROR; break;
                             }
                             break;
@@ -492,7 +514,8 @@ namespace AutomataLexicoS {
                                     token = "";
                                     e_Act = e.INICIAL; break;
                                 default:
-                                    f_errores.WriteLine("{0} {1}[Error lexico 22]" + c, linea, col);//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 22]" + c, linea, col);//   <--
                                     e_Act = e.ERROR; break;
                             }
                             break;
@@ -531,7 +554,8 @@ namespace AutomataLexicoS {
                                     token = "";
                                     e_Act = e.INICIAL; break;
                                 default:
-                                    f_errores.WriteLine("{0} {1}[Error lexico 24]" + c, linea, col);//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 24]" + c, linea, col);//   <--
                                     e_Act = e.ERROR; break;
                             }
                             break;
@@ -548,7 +572,8 @@ namespace AutomataLexicoS {
                                     token = "" + c; break;//completar token
                                 case t.O_MULTIPLICACION: case t.O_MODULO:
                                     e_Act = e.ERROR;
-                                    f_errores.WriteLine("{0} {1}[Error lexico OP]" + c, linea, col); break;//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico OP]" + c, linea, col); break;//   <--
                                 case t.O_DIVISION:
                                     e_Act = e.O_DIVISION;//mandar a dividir: 6
                                     token = ""+c; break;//haver token
@@ -556,7 +581,8 @@ namespace AutomataLexicoS {
                                     e_Act = e.INICIAL;
                                     token = "" + c; break;
                                 default:
-                                    f_errores.WriteLine("{0} {1}[Error lexico OP.2]" + c, linea, col);//   <--
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico OP.2]" + c, linea, col);//   <--
                                     e_Act = (byte)e.INICIAL;
                                     token = ""; break;
                             }
@@ -590,7 +616,9 @@ namespace AutomataLexicoS {
                 if (token != "" && e_Act != e.ERROR)//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~(agrega ultimo token: de ser posible)
                     f_tokens.WriteLine(token + "\n");//   <--
                 sr.Close();
+                f_tokens.Dispose();
                 f_tokens.Close();
+                f_errores.Dispose();
                 f_errores.Close();
             }
         }

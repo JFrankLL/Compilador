@@ -7,8 +7,7 @@ namespace AL {
         private string codigoF, token = "";
         private enum e: byte { INICIAL, O_SUMA, NUMERO, PUNTO_DECIMAL, NUMERO_FLOAT, IDENTIFICADOR, O_DIVISION,
             COMENTARIO, CMTS_CONT, CMTS_AS, COMENTARIOS,  O_RESTA, O_INCREMENTO, O_DECREMENTO, O_ASIGNA1, O_PARTE2,
-            O_COMPARA1, O_MAYOR, O_MAYOR_IGUAL, O_MENOR, O_MENOR_IGUAL, O_DIFERENTE1, O_DIFERENTE2, OPERA, BLOQUE,
-            OTRO, ERROR };//[ESTADOS]
+            O_COMPARA1, O_MAYOR, O_MAYOR_IGUAL, O_MENOR, O_MENOR_IGUAL, O_DIFERENTE1, O_DIFERENTE2, OPERA, OTRO, ERROR };//[ESTADOS]
         private enum t: byte { LETRA, DIGITO, SUBRAYADO, DOS_PTOS, O_IGUAL, O_MAYOR, O_MENOR, O_NEGAR, O_SUMA, O_RESTA,
             O_DIVISION, O_MULTIPLICACION, O_MODULO, PUNTO, ESPACIO, SALTO, TAB, CARRO, OTRO, BLOQUE}//[Tipo de CHAR]
         private e e_Act = (byte)e.INICIAL;//estado actual
@@ -151,7 +150,7 @@ namespace AL {
                                 case t.O_DIVISION:
                                     e_Act = e.O_DIVISION;//manda a div: 6
                                     f_tokens.WriteLine(token);//   <--
-                                    token = ""; break;//reset token
+                                    token = ""+c; break;//reset token
                                 default:
                                     e_Act = e.ERROR;//Mandar a estado error
                                     Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
@@ -200,7 +199,7 @@ namespace AL {
                                 case t.O_DIVISION:
                                     e_Act = e.O_DIVISION;//manda a div: 6
                                     f_tokens.WriteLine(token);//   <--
-                                    token = ""; break;//reset token
+                                    token = ""+c; break;//reset token
                                 default:
                                     e_Act = e.ERROR;
                                     Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
@@ -258,14 +257,30 @@ namespace AL {
                                 case t.DIGITO:
                                     e_Act = e.NUMERO;
                                     f_tokens.WriteLine(token);
-                                    token = "" + c;
-                                    break;
+                                    token = "" + c; break;
+                                case t.LETRA:
+                                    e_Act = e.IDENTIFICADOR;
+                                    f_tokens.WriteLine(token);
+                                    token = "" + c; break;
                                 case t.O_DIVISION:
                                     e_Act = e.COMENTARIO;//Mandar a comentario simple: 7
                                     token = ""; break;//reset token
                                 case t.O_MULTIPLICACION:
                                     e_Act = e.CMTS_CONT;//Mandar a comentarios multiples cont.: 8
                                     token = ""; break;//reset token
+                                case t.ESPACIO: case t.SALTO: case t.TAB: case t.CARRO:
+                                    e_Act = e.INICIAL;//manda a estado inicial
+                                    f_tokens.WriteLine(token);//   <--
+                                    token = ""; break;//limpia token
+                                case t.BLOQUE:
+                                    e_Act = e.INICIAL;
+                                    f_tokens.WriteLine(token);
+                                    f_tokens.WriteLine(c);
+                                    token = ""; break;
+                                default:
+                                    e_Act = e.ERROR;
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico 5]" + c, linea, col); break;//   <--
                             }
                             break;
 
@@ -587,9 +602,9 @@ namespace AL {
                                     e_Act = e.INICIAL;
                                     token = "" + c; break;
                                 default:
-                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    Console.WriteLine("{0} {1} [Error lexico OP.2]" + c, linea, col);
                                     f_errores.WriteLine("{0} {1} [Error lexico OP.2]" + c, linea, col);//   <--
-                                    e_Act = (byte)e.INICIAL;
+                                    e_Act = e.ERROR;
                                     token = ""; break;
                             }
                             break;
@@ -603,6 +618,16 @@ namespace AL {
                                     e_Act = e.IDENTIFICADOR;//mandar a identificadores
                                     f_tokens.WriteLine(token);//   <--
                                     token = "" + c; break;//nuevo token
+                                case t.BLOQUE:
+                                    e_Act = e.INICIAL;
+                                    f_tokens.WriteLine(token);
+                                    f_tokens.WriteLine(c);
+                                    token = ""; break;
+                                default:
+                                    Console.WriteLine("{0} {1} [Error lexico !]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico !]" + c, linea, col);//   <--
+                                    e_Act = e.ERROR;
+                                    token = ""; break;
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ERROR]
@@ -611,16 +636,10 @@ namespace AL {
                                 case t.ESPACIO: case t.SALTO: case t.TAB: case t.CARRO:
                                     e_Act = e.INICIAL;//Sale de estado error hacia inicial: 0
                                     token = ""; break;//reset token
-                                case t.BLOQUE: case t.O_MODULO: case t.O_MULTIPLICACION:
+                                case t.BLOQUE:
                                     e_Act = e.INICIAL;
                                     f_tokens.WriteLine(c);
-                                    token = "";break;
-                                /*case t.DIGITO:
-                                    e_Act = e.NUMERO;
-                                    token += c; break;
-                                case t.LETRA:
-                                    e_Act = e.IDENTIFICADOR;
-                                    token += c; break;*/
+                                    token = ""; break;
                                 case t.O_DIVISION:
                                     e_Act = e.O_DIVISION;
                                     token += c; break;

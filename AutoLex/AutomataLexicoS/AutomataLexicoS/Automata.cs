@@ -277,6 +277,14 @@ namespace AL {
                                     f_tokens.WriteLine(token);
                                     f_tokens.WriteLine(c);
                                     token = ""; break;
+                                case t.O_SUMA:
+                                    e_Act = e.O_SUMA;
+                                    f_tokens.WriteLine(token);
+                                    token = "" + c;break;
+                                case t.O_RESTA:
+                                    e_Act = e.O_RESTA;
+                                    f_tokens.WriteLine(token);
+                                    token = "" + c; break;
                                 default:
                                     e_Act = e.ERROR;
                                     Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
@@ -597,6 +605,7 @@ namespace AL {
                                     f_errores.WriteLine("{0} {1} [Error lexico OP]" + c, linea, col); break;//   <--
                                 case t.O_DIVISION:
                                     e_Act = e.O_DIVISION;//mandar a dividir: 6
+                                    f_tokens.WriteLine(token);//   <--
                                     token = ""+c; break;//haver token
                                 case t.ESPACIO: case t.SALTO:  case t.TAB: case t.CARRO:
                                     e_Act = e.INICIAL;

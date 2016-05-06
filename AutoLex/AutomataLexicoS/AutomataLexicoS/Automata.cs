@@ -457,6 +457,12 @@ namespace AL {
                                     e_Act = e.INICIAL;
                                     f_tokens.WriteLine(token);
                                     token = ""; break;
+                                case t.PUNTO:
+                                    e_Act = e.ERROR;
+                                    Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
+                                    f_errores.WriteLine("{0} {1} [Error lexico]" + c, linea, col);//   <--
+                                    f_tokens.WriteLine(token);
+                                    token = "";break;
                                 default:
                                     Console.WriteLine("{0} {1} [Error lexico 1]" + c, linea, col);
                                     f_errores.WriteLine("{0} {1} [Error lexico]" + c, linea, col);//   <--
@@ -603,8 +609,21 @@ namespace AL {
                         case e.ERROR:
                             switch (tipo(c)) {
                                 case t.ESPACIO: case t.SALTO: case t.TAB: case t.CARRO:
-                                    e_Act = (byte)e.INICIAL;//Sale de estado error hacia inicial: 0
+                                    e_Act = e.INICIAL;//Sale de estado error hacia inicial: 0
                                     token = ""; break;//reset token
+                                case t.BLOQUE: case t.O_MODULO: case t.O_MULTIPLICACION:
+                                    e_Act = e.INICIAL;
+                                    f_tokens.WriteLine(c);
+                                    token = "";break;
+                                /*case t.DIGITO:
+                                    e_Act = e.NUMERO;
+                                    token += c; break;
+                                case t.LETRA:
+                                    e_Act = e.IDENTIFICADOR;
+                                    token += c; break;*/
+                                case t.O_DIVISION:
+                                    e_Act = e.O_DIVISION;
+                                    token += c; break;
                             }
                             break;
                         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[OTRO]

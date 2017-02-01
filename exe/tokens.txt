@@ -1,0 +1,62 @@
+int	pal	Palabra reservada	1
+a	ide	Identificador	1
+,	blq	Coma	1
+b	ide	Identificador	1
+,	blq	Coma	1
+c	ide	Identificador	1
+;	blq	Punto y coma	1
+a	ide	Identificador	2
+:=	asi	Asignacion	2
+0	num	Numero entero	2
+;	blq	blq	Punto y coma
+b	ide	Identificador	3
+:=	asi	Asignacion	3
+1	num	Numero entero	3
+;	blq	blq	Punto y coma
+int	pal	Palabra reservada	5
+i	ide	Identificador	5
+,	blq	Coma	5
+n	ide	Identificador	5
+;	blq	Punto y coma	5
+i	ide	Identificador	6
+:=	asi	Asignacion	6
+2	num	Numero entero	6
+;	blq	blq	Punto y coma
+n	ide	Identificador	7
+:=	asi	Asignacion	7
+0	num	Numero entero	7
+;	blq	blq	Punto y coma
+cin	ide	Identificador	8
+n	ide	Identificador	8
+;	blq	Punto y coma	8
+while	pal	Palabra reservada	10
+(	blq	Parentesis que abre	10
+i	ide	Identificador	10
+<	men	Menor que	10
+n	ide	Identificador	10
+)	blq	Parentesis que cierra	10
+{	blq	Llave que abre	10
+c	ide	Identificador	11
+:=	asi	Asignacion	11
+a	ide	Identificador	11
++	mas	Signo mas	11
+b	ide	Identificador	11
+;	blq	Punto y coma	11
+a	ide	Identificador	12
+:=	asi	Asignacion	12
+b	ide	Identificador	12
+;	blq	Punto y coma	12
+b	ide	Identificador	13
+:=	asi	Asignacion	13
+c	ide	Identificador	13
+;	blq	Punto y coma	13
+cout	ide	Identificador	14
+c	ide	Identificador	14
+;	blq	Punto y coma	14
+i	ide	Identificador	15
+:=	asi	Asignacion	15
+i	ide	Identificador	15
++	mas	Signo mas	15
+1	num	Numero entero	15
+;	blq	blq	Punto y coma
+}	blq	Llave que cierra	16
